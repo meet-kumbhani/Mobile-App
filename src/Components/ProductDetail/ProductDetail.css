@@ -1,0 +1,94 @@
+.productname {
+  color: darkgray;
+}
+
+.addtocart-btn {
+  background-color: rgba(255, 127, 0, 1);
+  color: white;
+}
+
+.productdetails-part .cloth-brand {
+  color: darkgray;
+  margin: 0;
+}
+
+.productdetails-part .cloth-type {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.productdetails-part .strike {
+  text-decoration: line-through;
+  color: darkgray;
+  font-size: 20px;
+}
+
+.productdetails-part .price {
+  font-size: 20px;
+  font-weight: 500;
+  color: #ff7f00;
+}
+
+.productdetails-part .offcanvas.show:not(.hiding) {
+  border: 0px solid black;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: fit-content;
+  padding-bottom: 0;
+  background-color: #f9f9f9;
+}
+
+.productdetails-part .offcanvas.offcanvas-bottom {
+  border: 0px solid black;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: fit-content;
+  padding-bottom: 0;
+}
+
+.XS {
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 10px;
+  background-color: #ff7f00;
+  padding: 10px 38px;
+  color: white;
+}
+
+.S {
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 10px;
+  background-color: white;
+  padding: 10px 38px;
+  color: black;
+}
+
+.M {
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 10px;
+  background-color: white;
+  padding: 10px 38px;
+  color: black;
+}
+
+.L {
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 10px;
+  background-color: white;
+  padding: 10px 38px;
+  color: black;
+}
+
+.XL {
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 10px;
+  background-color: white;
+  padding: 10px 38px;
+  color: black;
+}
+
+.productdetails-part .favoutite-icon {
+  padding: 7px 10px 12px 10px;
+  border-radius: 100%;
+  box-shadow: 2px 2px 5px gray;
+}

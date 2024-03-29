@@ -1,0 +1,19 @@
+.signup-page{
+    background-color: #F9F9F9;
+    height: 100vh;
+}
+
+.signup-page .sign-up-btn{
+    border: none;
+    background-color: #FF7F00;
+    color: #FFFFFF;
+    box-shadow: 0px 4px 8px 0px #D3262640;
+}
+
+.signup-page .input-field{
+box-shadow: 0px 1px 8px 0px #0000000D;
+}
+
+.signup-page .social-media{
+    padding-top: 14%;
+}

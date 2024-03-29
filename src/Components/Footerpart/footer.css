@@ -1,0 +1,14 @@
+.footer-part {
+  background-color: #ffff;
+  border-top-left-radius: 23px;
+  border-top-right-radius: 23px;
+  box-shadow: 0 -4px 20px 0 rgb(190, 189, 189);
+}
+
+.icons:hover {
+  color: #ff7f00;
+}
+
+.text {
+  font-size: 10px;
+}

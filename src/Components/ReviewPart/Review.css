@@ -1,0 +1,87 @@
+.review-part {
+  background-color: #f9f9f9;
+  height: 100%;
+}
+
+.review-part .heading h1 {
+  font-size: xx-large;
+  margin-top: 8%;
+  font-weight: 700;
+}
+
+.review-part .review-date {
+  color: gray;
+}
+
+.review-part .review-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 85%;
+  padding: 0 5%;
+}
+
+.review-part .review-btn {
+  background-color: #ff7f00;
+  color: white;
+  box-shadow: 0 4px 8px 0 #d3262640;
+}
+
+.review-part .offcanvas.show:not(.hiding) {
+  border: 0px solid black;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: fit-content;
+  background-color: #f9f9f9;
+}
+
+.offcanvas.offcanvas-bottom {
+  border: 0px solid black;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: fit-content;
+}
+
+.review-part .form-control {
+  border: 0px;
+}
+
+.review-part .send-review-btn {
+  background-color: #ff7f00;
+  color: white;
+}
+
+.review-part .total-rating {
+  margin: 0;
+  font-size: 45px;
+  font-weight: 700;
+}
+
+.review-part .rating-count {
+  color: darkgray;
+}
+
+.review-part .review-comments {
+  margin-top: 8%;
+}
+
+.camera-icon {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  background-color: white;
+  padding: 20px 10px;
+}
+
+.reivewimages {
+  display: flex;
+  overflow-x: auto;
+  max-height: 100px;
+}
+
+.allover-review .progress {
+  --bs-progress-bar-bg: red !important;
+  --bs-progress-height: 0.6rem !important;
+}

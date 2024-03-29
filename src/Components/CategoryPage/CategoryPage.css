@@ -1,0 +1,57 @@
+.category-page {
+  padding-bottom: 5%;
+}
+
+.categoryname-part {
+  background-color: #f9f9f9;
+  padding-bottom: 20%;
+  height: 100vh;
+}
+
+.categoryname-part .category-btn {
+  background-color: white;
+  border: none;
+  padding: 10px 15px;
+}
+
+.categoryname-part .category-btn:focus {
+  font-weight: bold;
+  border-bottom: 3px solid #ff7f00;
+}
+
+.categoryname-part .summer-sales-btn {
+  background-color: #ff7f00;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 15px 0px;
+  box-shadow: 0px 1px 25px 0px #00000014;
+  border-radius: 10px;
+}
+
+.categoryname-part .summer-sales-btn span {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.categories-name {
+  border-radius: 10px;
+}
+
+.categories-image {
+  border-radius: 0px 10px 10px 0px;
+}
+
+.viewall-btn {
+  background-color: #ff7f00;
+  color: #ffffff;
+}
+
+.categorylist {
+  background-color: #f9f9f9;
+  height: 80vh;
+}
+
+.filter-buttons {
+  padding: 3% 0 20% 0;
+}

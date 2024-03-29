@@ -1,0 +1,95 @@
+.main-page .image-content-part {
+  background-image: url(../../../public/images/Banner.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.main-page .Check-button {
+  background-color: #ff7f00;
+  color: #ffffff;
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
+
+.main-page .image-content-part .banner-text {
+  padding-top: 90%;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.main-page .cloth-brand {
+  font-size: 20px;
+}
+
+.main-page .cloth-type {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.main-page .strike {
+  text-decoration: line-through;
+  color: darkgray;
+  font-size: 17px;
+}
+
+.main-page .price {
+  font-size: 17px;
+  color: #ff7f00;
+}
+
+.main-page .page-title {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.main-page .sub-title {
+  color: darkgray;
+}
+
+.main-page .row > * {
+  padding: 0;
+  margin: 0;
+}
+
+.main-page .row {
+  padding: 0;
+  margin: 0;
+}
+
+.summersale {
+  color: #ff7f00;
+  text-decoration: none;
+}
+
+.summersale-text {
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.product-image2 {
+  border-radius: 10px;
+}
+
+.product-part {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.product-part::-webkit-scrollbar {
+  display: none;
+}
+
+.product-part .favourite-icon {
+  font-size: 18px;
+}
+.new-collection-part {
+  padding-bottom: 20%;
+}
+
+.sale-part .sale-viewall:hover {
+  color: #ff7f00;
+}
+
+.new-collection-part .new-viewall:hover {
+  color: #ff7f00;
+}

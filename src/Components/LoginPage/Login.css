@@ -1,0 +1,13 @@
+.login-page{
+    background-color: #F9F9F9;
+    height: 100vh;
+}
+
+.login-page .sign-up-btn{
+    background-color: #FF7F00;
+    color: #FFFFFF;
+}
+
+.login-page .social-media{
+    padding-top:12%;
+}
