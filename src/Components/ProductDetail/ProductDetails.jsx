@@ -82,21 +82,17 @@ const ProductDetails = () => {
 
   const handleSizeSelection = (size) => {
     if (selectedSizes.includes(size)) {
-      setSelectedSizes(
-        selectedSizes.filter((selectedSize) => selectedSize !== size)
-      );
+      setSelectedSizes([]);
     } else {
-      setSelectedSizes([...selectedSizes, size]);
+      setSelectedSizes([size]);
     }
   };
 
   const handleColorSelection = (color) => {
     if (selectedColor.includes(color)) {
-      setSelectedColor(
-        selectedColor.filter((selectedSize) => selectedSize !== color)
-      );
+      setSelectedColor([]);
     } else {
-      setSelectedColor([...selectedColor, color]);
+      setSelectedColor([color]);
     }
   };
 

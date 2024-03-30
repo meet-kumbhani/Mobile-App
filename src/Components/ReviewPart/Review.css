@@ -48,6 +48,7 @@
 .review-part .send-review-btn {
   background-color: #ff7f00;
   color: white;
+  box-shadow: 0 4px 8px 0 #d3262640;
 }
 
 .review-part .total-rating {

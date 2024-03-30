@@ -18,6 +18,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import Slider from "@mui/material/Slider";
 import { addToFavourites, favouriteData } from "../../toolkit/slice";
 import { useDispatch, useSelector } from "react-redux";
+import Items from "./Items";
 
 const CatalogPage = () => {
   const [product, setProduct] = useState([]);
@@ -34,7 +35,7 @@ const CatalogPage = () => {
   const [sizefilter, setSizefilter] = useState([]);
   const [addfavourite, setAddfavourite] = useState(false);
   const dispatch = useDispatch();
-  const favoritedata = useSelector((state) => state.data.favouriteData);
+  // const favoritedata = useSelector((state) => state.data.favouriteData);
   // console.log(favoritedata, "fd=====");
 
   useEffect(() => {
@@ -59,19 +60,17 @@ const CatalogPage = () => {
       });
   }, [productId]);
 
-  useEffect(() => {
-    // console.log("product.productId:", product?.map(item => item.productId));
-    // console.log("item.productId:",  favoritedata?.map(item => item.productId));
+  // useEffect(() => {
 
-    const abc = favoritedata?.find(
-      (item) =>
-        item.productId === product.productId &&
-        item.brand === product.brand &&
-        item.type === product.type &&
-        item.price === product.price
-    );
-    setAddfavourite(abc);
-  }, [product, favoritedata]);
+  //   const abc = favoritedata?.find(
+  //     (item) =>
+  //       item.productId === product.productId &&
+  //       item.brand === product.brand &&
+  //       item.type === product.type &&
+  //       item.price === product.price
+  //   );
+  //   setAddfavourite(abc);
+  // }, [product, favoritedata]);
 
   const sortProductsByPrice = (order) => {
     const sortedProducts = [...product].sort((a, b) => {
@@ -173,25 +172,36 @@ const CatalogPage = () => {
     setFilterValue("");
   };
 
-  let addFavourites = (productId) => {
-    const selectedProduct = product.find((item) => item.id === productId);
-    console.log(selectedProduct);
+  // let addFavourites = (productId) => {
+  //   const selectedProduct = product.find((item) => item.id === productId);
 
-    if (selectedProduct && selectedSizes && selectedColors) {
-      dispatch(
-        addToFavourites({
-          ...selectedProduct,
-          size: selectedSizes,
-          color: selectedColors,
-        })
-      );
-      dispatch(favouriteData());
-      setSelectedSizes([]);
-      setSelectedColors([]);
-    } else {
-      console.log("Product Not Add");
-    }
-  };
+  //   if (selectedProduct && selectedSizes && selectedColors) {
+  //     const isAlreadyFavorited = favoritedata.some(
+  //       (item) =>
+  //         item.productId === selectedProduct.productId &&
+  //         item.brand === selectedProduct.brand &&
+  //         item.type === selectedProduct.type &&
+  //         item.price === selectedProduct.price
+  //     );
+  //     setAddfavourite(isAlreadyFavorited);
+  //     if (isAlreadyFavorited) {
+  //       setAddfavourite(isAlreadyFavorited);
+  //       console.log("Product is already in favorites");
+  //     } else {
+  //       dispatch(
+  //         addToFavourites({
+  //           ...selectedProduct,
+  //           size: selectedSizes,
+  //           color: selectedColors,
+  //         })
+  //       );
+  //       setSelectedSizes([]);
+  //       setSelectedColors([]);
+  //     }
+  //   } else {
+  //     console.log("Product Not Add");
+  //   }
+  // };
 
   const filteredProducts = product?.filter((item) =>
     item?.brand?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -264,155 +274,16 @@ const CatalogPage = () => {
           {filteredProducts
             ?.filter((item) => item.image)
             ?.map((item) => (
-              <div key={item.id}>
-                <Link to={`/productdetails/${item.id}`} className="nav-link">
-                  <div className="product mt-4">
-                    <div className="row mb-4" style={{ position: "relative" }}>
-                      <div className="col-3">
-                        <img
-                          src={item.image}
-                          className="product-image"
-                          height={"120px"}
-                          width={"100px"}
-                        />
-                      </div>
-                      <div className="col-9 ps-5">
-                        <div className="d-flex flex-column">
-                          <span className="mt-2 fs-3 fw-bold">
-                            {item.brand}
-                          </span>
-                          <span>{item.type}</span>
-                          <Rating
-                            name="size-small"
-                            className="mt-1 mb-1"
-                            defaultValue={item.rating}
-                            size="small"
-                            readOnly
-                          />
-                          <span className="fs-6 fw-bold">${item.price}</span>
-                        </div>
-                      </div>
-                      <Fab
-                        aria-label="like"
-                        className="favoutite-icon"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target={`#${item.id}`}
-                        aria-controls="offcanvasBottom"
-                        style={{
-                          backgroundColor: liked[item.id] ? "orange" : "white",
-                          color: liked[item.id] ? "white" : "orange",
-                        }}
-                        onClick={(event) => event.preventDefault()}
-                      >
-                        <FavoriteBorderOutlinedIcon />
-                      </Fab>
-                    </div>
-                  </div>
-                </Link>
-
-                {/* Size Offcanvas */}
-
-                <div
-                  className="offcanvas offcanvas-bottom pb-0"
-                  tabIndex="-1"
-                  id={item.id}
-                  aria-labelledby="offcanvasBottomLabel"
-                >
-                  <div className="offcanvas-header">
-                    <button
-                      type="button"
-                      className="btn-close text-reset"
-                      data-bs-dismiss="offcanvas"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div className="offcanvas-body small pt-0">
-                    <h5 className="text-center">Select size</h5>
-
-                    <div className="button-container pb-3 mt-4">
-                      {item &&
-                        item?.size?.map((size, index) => (
-                          <button
-                            key={index}
-                            className={`size-button w-100 ${
-                              selectedSizes.includes(size) ? "selected" : ""
-                            }`}
-                            onClick={() => handleSizeSelection(size)}
-                            style={{
-                              backgroundColor: selectedSizes.includes(size)
-                                ? "#FF7F00"
-                                : "white",
-                              color: selectedSizes.includes(size)
-                                ? "white"
-                                : "black",
-                              borderRadius: "5px",
-                            }}
-                          >
-                            {size}
-                          </button>
-                        ))}
-                    </div>
-
-                    <hr />
-
-                    <h5>Color</h5>
-                    <div className="color-button p-3">
-                      <button
-                        className="yellow"
-                        onClick={() => handleColorSelection("yellow")}
-                      ></button>
-                      <button
-                        className="blue"
-                        onClick={() => handleColorSelection("blue")}
-                      ></button>
-                      <button
-                        className="white"
-                        onClick={() => handleColorSelection("white")}
-                      ></button>
-                      <button
-                        className="black"
-                        onClick={() => handleColorSelection("black")}
-                      ></button>
-                      <button
-                        className="green"
-                        onClick={() => handleColorSelection("green")}
-                      ></button>
-                      <button
-                        className="red"
-                        onClick={() => handleColorSelection("red")}
-                      ></button>
-                    </div>
-                  </div>
-                  <div className="pb-3">
-                    {addfavourite ? (
-                      <Link
-                        to="/favourite"
-                        className="border-0 rounded-pill w-100 nav-link p-3 addtocart-btn text-center"
-                      >
-                        GO TO FAVOURITE
-                      </Link>
-                    ) : (
-                      <button
-                        className="border-0 rounded-pill w-100 p-3 addtocart-btn"
-                        onClick={() => addFavourites(item.id)}
-                        data-bs-dismiss="offcanvas"
-                        aria-label="Close"
-                      >
-                        ADD FAVOURITE
-                      </button>
-                    )}
-
-                    {/* <button
-                      className="border-0 rounded-pill w-100 p-3 addtocart-btn"
-                      onClick={() => addFavourites(item.id)}
-                      data-bs-dismiss="offcanvas"
-                      aria-label="Close"
-                    >
-                      ADD FAVOURITE
-                    </button> */}
-                  </div>
-                </div>
-              </div>
+              <Items
+                image={item.image}
+                rating={item.rating}
+                price={item.price}
+                type={item.type}
+                brand={item.brand}
+                sizes={item.size}
+                id={item.id}
+                productId={item.productId}
+              />
             ))}
         </section>
         <Footer />
