@@ -30,15 +30,15 @@ const Itemsgrid = (props) => {
     if (selectedColors.includes(color)) {
       setSelectedColors(selectedColors.filter((c) => c !== color));
     } else {
-      setSelectedColors([...selectedColors, color]);
+      setSelectedColors([color]);
     }
   };
 
-  const handleSizerSelection = (size) => {
+  const handleSizeSelection = (size) => {
     if (selectedSizes.includes(size)) {
-      setSelectedSizes(selectedSizes.filter((c) => c !== size));
+      setSelectedSizes(selectedSizes.filter((s) => s !== size));
     } else {
-      setSelectedSizes([...selectedSizes, size]);
+      setSelectedSizes([size]);
     }
   };
 
@@ -131,7 +131,7 @@ const Itemsgrid = (props) => {
                   className={`size-button w-100 ${
                     selectedSizes.includes(size) ? "selected" : ""
                   }`}
-                  onClick={() => handleSizerSelection(size)}
+                  onClick={() => handleSizeSelection(size)}
                   style={{
                     backgroundColor: selectedSizes.includes(size)
                       ? "#FF7F00"
@@ -148,34 +148,29 @@ const Itemsgrid = (props) => {
           <hr />
 
           <h5>Color</h5>
-          <div className="color-button p-3">
-            <button
-              className="yellow"
-              onClick={() => handleColorSelection("yellow")}
-            ></button>
-            <button
-              className="blue"
-              onClick={() => handleColorSelection("blue")}
-            ></button>
-            <button
-              className="white"
-              onClick={() => handleColorSelection("white")}
-            ></button>
-            <button
-              className="black"
-              onClick={() => handleColorSelection("black")}
-            ></button>
-            <button
-              className="green"
-              onClick={() => handleColorSelection("green")}
-            ></button>
-            <button
-              className="red"
-              onClick={() => handleColorSelection("red")}
-            ></button>
+
+          <div className="color-container d-flex justify-content-between">
+            {props &&
+              props?.color &&
+              props?.color?.map((color, index) => (
+                <button
+                  key={index}
+                  className={`color-button ${
+                    selectedColors.includes(color) ? "selected" : ""
+                  }`}
+                  onClick={() => handleColorSelection(color)}
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    backgroundColor: color,
+                    border: "none",
+                    borderRadius: "50%",
+                  }}
+                ></button>
+              ))}
           </div>
         </div>
-        <div className="pb-3">
+        <div className="pb-3 container-fluid">
           {addfavourite ? (
             <Link
               to="/favourite"
@@ -185,7 +180,14 @@ const Itemsgrid = (props) => {
             </Link>
           ) : (
             <button
-              className="border-0 rounded-pill w-100 p-3 addtocart-btn"
+              className="border-0 rounded-pill w-100 p-3 btn"
+              style={{
+                backgroundColor: "rgba(255, 127, 0, 1)",
+                color: "white",
+              }}
+              disabled={
+                selectedSizes.length === 0 || selectedColors.length === 0
+              }
               onClick={handleAddToFavorites}
               data-bs-dismiss="offcanvas"
               aria-label="Close"

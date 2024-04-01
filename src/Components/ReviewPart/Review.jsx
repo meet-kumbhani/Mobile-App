@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Form from "react-bootstrap/Form";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { mainURL } from "../../config/url";
 import moment from "moment";
@@ -17,9 +17,9 @@ const Review = () => {
   const [imgs, setImgs] = useState([]);
   const [product, setProduct] = useState(null);
   const [showWithPhotoOnly, setShowWithPhotoOnly] = useState(false);
+  const [selectedImages, setSelectedImages] = useState([]);
   const fileInputRef = useRef(null);
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const handleLogoClick = () => {
     fileInputRef.current.click();
@@ -41,15 +41,18 @@ const Review = () => {
 
   const handleFileChange = (e) => {
     const files = e.target.files;
+    const selectedImagesArray = [];
 
     for (let i = 0; i < files.length; i++) {
       const data = new FileReader();
       data.onload = () => {
         const base64Image = data.result;
+        selectedImagesArray.push(base64Image);
         setImgs((prevImages) => [...prevImages, data.result]);
       };
       data.readAsDataURL(files[i]);
     }
+    setSelectedImages(selectedImagesArray);
   };
 
   const handleReviewSubmit = () => {
@@ -72,6 +75,7 @@ const Review = () => {
         setRating(0);
         setText("");
         setImgs([]);
+        setSelectedImages([]);
       })
       .catch((error) => {
         console.error("Error updating review:", error);
@@ -110,7 +114,9 @@ const Review = () => {
   return (
     <section className="review-part">
       <div className="pt-3 container-fluid">
-        <ArrowBackIosNewIcon onClick={() => navigate(-1)} />
+        <Link to="/productdetails" className="nav-link">
+          <ArrowBackIosNewIcon />
+        </Link>
       </div>
 
       <section className="heading">
@@ -228,13 +234,10 @@ const Review = () => {
           <div>
             <input
               type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
+              className="review-checkbox"
               onChange={() => setShowWithPhotoOnly(!showWithPhotoOnly)}
             />
-            <label className="ms-2 form-check-label" htmlFor="exampleCheck1">
-              With Photo
-            </label>
+            <label className="ms-2 form-check-label">With Photo</label>
           </div>
         </div>
       </section>
@@ -244,35 +247,45 @@ const Review = () => {
       <section className="all-review">
         {product &&
           product?.review &&
-          product?.review?.map((review) => (
-            <div
-              key={review.reviewid}
-              className="container review-content mt-4"
-            >
-              <h6 className="pt-2">K.K.K</h6>
-              <div className="d-flex justify-content-between">
-                <Rating name="read-only" value={review.reviewrating} readOnly />
-                <span className="review-date">{time}</span>
-              </div>
-              <p>{review.reviewdescription}</p>
+          product?.review
+            .filter((review) =>
+              showWithPhotoOnly
+                ? review.reviewimage.length > 0
+                : review.reviewimage.length === 0
+            )
+            .map((review) => (
+              <div
+                key={review.reviewid}
+                className="container review-content mt-4"
+              >
+                <h6 className="pt-2">K.K.K</h6>
+                <div className="d-flex justify-content-between">
+                  <Rating
+                    name="read-only"
+                    value={review.reviewrating}
+                    readOnly
+                  />
+                  <span className="review-date">{time}</span>
+                </div>
+                <p>{review.reviewdescription}</p>
 
-              <div className="reivewimages">
-                {showWithPhotoOnly &&
-                  review?.reviewimage?.map((image, index) => (
-                    <img
-                      key={index}
-                      src={decodeBase64Image(image)}
-                      alt="Review"
-                      style={{
-                        maxWidth: "100px",
-                        maxHeight: "100px",
-                        margin: "5px",
-                      }}
-                    />
-                  ))}
+                <div className="reivewimages">
+                  {showWithPhotoOnly &&
+                    review?.reviewimage?.map((image, index) => (
+                      <img
+                        key={index}
+                        src={decodeBase64Image(image)}
+                        alt="Review"
+                        style={{
+                          maxWidth: "100px",
+                          maxHeight: "100px",
+                          margin: "5px",
+                        }}
+                      />
+                    ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
       </section>
 
       <div className="container-fluid d-flex justify-content-end fixed-bottom">
@@ -289,7 +302,7 @@ const Review = () => {
       {/* Review Form */}
 
       <div
-        className="offcanvas offcanvas-bottom container-fluid"
+        className="offcanvas offcanvas-bottom container-fluid pb-0"
         tabIndex="-1"
         id="offcanvasBottom"
         aria-labelledby="offcanvasBottomLabel"
@@ -338,27 +351,45 @@ const Review = () => {
               </Form.Group>
             </div>
           </div>
-          <div className="camera-icon" onClick={handleLogoClick}>
-            <img
-              src="../../images/Camera.svg"
-              alt=""
-              style={{ cursor: "pointer" }}
-              height="60px"
-              width="60px"
-            />
-            <input
-              type="file"
-              ref={fileInputRef}
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-              multiple
-            />
-            <h6 className="mt-2">Add your photos</h6>
+
+          <div>
+            <div className="images-upload">
+              <div className="selected-images">
+                {selectedImages.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt="Selected Image"
+                    style={{ width: "140px", height: "130px" }}
+                  />
+                ))}
+              </div>
+              <div className="camera-icon" onClick={handleLogoClick}>
+                <img
+                  src="../../images/Camera.svg"
+                  alt=""
+                  style={{ cursor: "pointer" }}
+                  height="60px"
+                  width="60px"
+                />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                  multiple
+                />
+                <h6 className="mt-2">Add your photos</h6>
+              </div>
+            </div>
           </div>
 
           <button
             className="border-0 rounded-pill send-review-btn p-3 w-100 mt-5"
             onClick={handleReviewSubmit}
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasBottom"
+            aria-controls="offcanvasBottom"
           >
             SEND REVIEW
           </button>

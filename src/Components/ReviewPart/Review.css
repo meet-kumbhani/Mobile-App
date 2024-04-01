@@ -66,14 +66,32 @@
 }
 
 .camera-icon {
-  margin-top: 50px;
-  display: flex;
+  /* margin-top: 50px; */
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: fit-content;
   background-color: white;
   padding: 20px 10px;
+}
+
+.selected-images {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.selected-images img {
+  margin: 0 15px 15px 0;
+  height: 130px;
+  width: 140px;
+}
+
+.images-upload {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .reivewimages {
@@ -85,4 +103,13 @@
 .allover-review .progress {
   --bs-progress-bar-bg: red !important;
   --bs-progress-height: 0.6rem !important;
+  --bs-progress-bg: #f9f9f9;
+}
+
+.allover-review .progress-bar {
+  border-radius: 10px;
+}
+
+input[type="checkbox"].review-checkbox:checked {
+  accent-color: #000000;
 }

@@ -265,10 +265,7 @@ const ProductDetails = () => {
                     </Link>
                   ) : (
                     <button
-                      className="border-0 rounded-pill w-100 p-3 addtocart-btn"
-                      onClick={() => addFavourites(details.id)}
-                      data-bs-dismiss="offcanvas"
-                      aria-label="Close"
+                      className="border-0 rounded-pill w-100 p-3 btn"
                       style={{
                         backgroundColor: "rgba(255, 127, 0, 1)",
                         color: "white",
@@ -276,6 +273,10 @@ const ProductDetails = () => {
                       disabled={
                         selectedSizes.length === 0 || selectedColor.length === 0
                       }
+                      onClick={() => addFavourites(details.id)}
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#size-color"
+                      aria-controls="offcanvasBottom"
                     >
                       ADD FAVOURITE
                     </button>

@@ -209,13 +209,9 @@ const CatalogPage = () => {
                 data-bs-target="#AllFilters"
                 aria-controls="offcanvasBottom"
               />
-              <Form.Control
-                type="text"
-                className="w-25 filter"
-                placeholder="Filters"
-              />
+              <span>Filters</span>
               <SwapVertIcon
-                className="swap-icon2"
+                className="swap-icon2 ms-auto"
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasBottom"
                 aria-controls="offcanvasBottom"
@@ -255,7 +251,7 @@ const CatalogPage = () => {
 
       <div className="container-fluid d-flex justify-content-end fixed-bottom">
         <div
-          className="offcanvas offcanvas-bottom"
+          className="offcanvas offcanvas-bottom pb-0"
           tabIndex="-1"
           id="offcanvasBottom"
           aria-labelledby="offcanvasBottomLabel"

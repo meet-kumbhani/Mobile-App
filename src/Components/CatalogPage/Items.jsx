@@ -30,15 +30,15 @@ const Items = (props) => {
     if (selectedColors.includes(color)) {
       setSelectedColors(selectedColors.filter((c) => c !== color));
     } else {
-      setSelectedColors([...selectedColors, color]);
+      setSelectedColors([color]);
     }
   };
 
   const handleSizeSelection = (size) => {
     if (selectedSizes.includes(size)) {
-      setSelectedSizes(selectedSizes.filter((c) => c !== size));
+      setSelectedSizes(selectedSizes.filter((s) => s !== size));
     } else {
-      setSelectedSizes([...selectedSizes, size]);
+      setSelectedSizes([size]);
     }
   };
 
@@ -182,7 +182,14 @@ const Items = (props) => {
             </Link>
           ) : (
             <button
-              className="border-0 rounded-pill w-100 p-3 addtocart-btn"
+              className="border-0 rounded-pill w-100 p-3 btn"
+              style={{
+                backgroundColor: "rgba(255, 127, 0, 1)",
+                color: "white",
+              }}
+              disabled={
+                selectedSizes.length === 0 || selectedColors.length === 0
+              }
               onClick={handleAddToFavorites}
               data-bs-dismiss="offcanvas"
               aria-label="Close"
