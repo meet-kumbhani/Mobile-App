@@ -228,31 +228,25 @@ const ProductDetails = () => {
                   <hr />
 
                   <h5>Color</h5>
-                  <div className="color-button p-3">
-                    <button
-                      className="yellow"
-                      onClick={() => handleColorSelection("yellow")}
-                    ></button>
-                    <button
-                      className="blue"
-                      onClick={() => handleColorSelection("blue")}
-                    ></button>
-                    <button
-                      className="white"
-                      onClick={() => handleColorSelection("white")}
-                    ></button>
-                    <button
-                      className="black"
-                      onClick={() => handleColorSelection("black")}
-                    ></button>
-                    <button
-                      className="green"
-                      onClick={() => handleColorSelection("green")}
-                    ></button>
-                    <button
-                      className="red"
-                      onClick={() => handleColorSelection("red")}
-                    ></button>
+                  <div className="color-container d-flex justify-content-between">
+                    {details &&
+                      details?.color &&
+                      details?.color?.map((color, index) => (
+                        <button
+                          key={index}
+                          className={`color-button ${
+                            selectedColor.includes(color) ? "selected" : ""
+                          }`}
+                          onClick={() => handleColorSelection(color)}
+                          style={{
+                            width: "30px",
+                            height: "30px",
+                            backgroundColor: color,
+                            border: "none",
+                            borderRadius: "50%",
+                          }}
+                        ></button>
+                      ))}
                   </div>
                 </div>
                 <div className="pb-3 container-fluid">
@@ -274,9 +268,8 @@ const ProductDetails = () => {
                         selectedSizes.length === 0 || selectedColor.length === 0
                       }
                       onClick={() => addFavourites(details.id)}
-                      data-bs-toggle="offcanvas"
-                      data-bs-target="#size-color"
-                      aria-controls="offcanvasBottom"
+                      data-bs-dismiss="offcanvas"
+                      aria-label="Close"
                     >
                       ADD FAVOURITE
                     </button>
@@ -331,31 +324,25 @@ const ProductDetails = () => {
                   <div className="offcanvas-body small pt-0">
                     <p className="fw-bold gray-title p-2 m-0">Colors</p>
 
-                    <div className="color-button py-1">
-                      <button
-                        className="yellow"
-                        onClick={() => handleColorSelection("yellow")}
-                      ></button>
-                      <button
-                        className="green"
-                        onClick={() => handleColorSelection("green")}
-                      ></button>
-                      <button
-                        className="white"
-                        onClick={() => handleColorSelection("white")}
-                      ></button>
-                      <button
-                        className="red"
-                        onClick={() => handleColorSelection("red")}
-                      ></button>
-                      <button
-                        className="blue"
-                        onClick={() => handleColorSelection("blue")}
-                      ></button>
-                      <button
-                        className="black"
-                        onClick={() => handleColorSelection("black")}
-                      ></button>
+                    <div className="color-container d-flex justify-content-between">
+                      {details &&
+                        details?.color &&
+                        details?.color?.map((color, index) => (
+                          <button
+                            key={index}
+                            className={`color-button ${
+                              selectedColor.includes(color) ? "selected" : ""
+                            }`}
+                            onClick={() => handleColorSelection(color)}
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              backgroundColor: color,
+                              border: "none",
+                              borderRadius: "50%",
+                            }}
+                          ></button>
+                        ))}
                     </div>
 
                     <hr />

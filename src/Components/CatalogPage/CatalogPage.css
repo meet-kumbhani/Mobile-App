@@ -11,6 +11,10 @@
   display: none;
 }
 
+.color-button.selected {
+  outline: 2px solid purple !important;
+}
+
 .category-btn-main .category-btn {
   display: inline-block;
   padding: 6px 21px;

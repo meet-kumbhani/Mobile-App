@@ -57,7 +57,7 @@ const MainPage = () => {
               .map((newitem) => (
                 <div key={newitem.id}>
                   <Link to={`/subcategory/${newitem.parentId}`}>
-                    <img src={newitem.img} alt="" width="100%" height="300px" />
+                    <img src={newitem.img} alt="" width="100%" />
                   </Link>
                 </div>
               ))}
