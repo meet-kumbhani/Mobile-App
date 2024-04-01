@@ -47,7 +47,6 @@ export const fetchAllData = createAsyncThunk(
 
 export const cartData = createAsyncThunk('product/cartData', async () => {
     return (await axios.get(cartURL).then((res) => {
-        console.log(res.data, "<====")
         return res.data
     }).catch((err) => {
         console.log(err);

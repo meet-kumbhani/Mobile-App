@@ -5,15 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToFavourites, favouriteData } from "../../toolkit/slice";
 import { Link } from "react-router-dom";
 
-const Items = (props) => {
+const Itemsgrid = (props) => {
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
   const [addfavourite, setAddfavourite] = useState(false);
-  const favourites = useSelector((i) => i.data.favouriteData);
+  const favdata = useSelector((item) => item.data.favouriteData);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const isProductInFavourite = favourites?.some(
+    const isProductInFavourite = favdata?.some(
       (item) =>
         item.productId === props?.productId &&
         item.brand === props?.brand &&
@@ -24,7 +24,7 @@ const Items = (props) => {
         item.color === selectedColors[0]
     );
     setAddfavourite(isProductInFavourite);
-  }, [favourites, props, selectedColors, selectedSizes]);
+  }, [favdata, props, selectedColors, selectedSizes]);
 
   const handleColorSelection = (color) => {
     if (selectedColors.includes(color)) {
@@ -34,7 +34,7 @@ const Items = (props) => {
     }
   };
 
-  const handleSizeSelection = (size) => {
+  const handleSizerSelection = (size) => {
     if (selectedSizes.includes(size)) {
       setSelectedSizes(selectedSizes.filter((c) => c !== size));
     } else {
@@ -58,52 +58,55 @@ const Items = (props) => {
       console.log("Product Not Add");
     }
   };
-
   return (
-    <div>
+    <div className="col-6 pb-4" key={props.id}>
       <Link to={`/productdetails/${props.id}`} className="nav-link">
-        <div className="product mt-4">
-          <div className="row mb-4" style={{ position: "relative" }}>
-            <div className="col-3">
-              <img
-                src={props.image}
-                className="product-image"
-                height={"120px"}
-                width={"100px"}
-              />
-            </div>
-            <div className="col-9 ps-5">
-              <div className="d-flex flex-column">
-                <span className="mt-2 fs-3 fw-bold">{props.brand}</span>
-                <span>{props.type}</span>
-                <Rating
-                  name="size-small"
-                  className="mt-1 mb-1"
-                  defaultValue={props.rating}
-                  size="small"
-                  readOnly
-                />
-                <span className="fs-6 fw-bold">${props.price}</span>
-              </div>
-            </div>
-            <Fab
-              aria-label="like"
-              className="favoutite-icon"
-              data-bs-toggle="offcanvas"
-              data-bs-target={`#size_${props.id}`}
-              aria-controls={`offcanvasBottom_${props.id}`}
-              onClick={(event) => event.preventDefault()}
-            >
-              <FavoriteBorderOutlinedIcon />
-            </Fab>
-          </div>
+        <div style={{ position: "relative" }}>
+          <img
+            src={props.image}
+            className="product-image2"
+            height={"160px"}
+            width={"100%"}
+          />
+          <Fab
+            style={{
+              position: "absolute",
+              bottom: "-20px",
+              right: "0",
+              zIndex: "1",
+              color: "orange",
+              backgroundColor: "white",
+              height: "45px",
+              width: "45px",
+            }}
+            aria-label="like"
+            className="favoutite-icon"
+            data-bs-toggle="offcanvas"
+            data-bs-target={`#size_${props.id}`}
+            aria-controls="offcanvasBottom"
+            onClick={(event) => event.preventDefault()}
+          >
+            <FavoriteBorderOutlinedIcon />
+          </Fab>
+        </div>
+        <div className="d-flex flex-column">
+          <Rating
+            name="size-small"
+            className="mt-1 mb-1"
+            defaultValue={props.rating}
+            size="small"
+            readOnly
+          />
+          <span>{props.brand}</span>
+          <span className="fs-5 fw-bold">{props.type}</span>
+          <span className="fs-6 fw-bold">${props.price}</span>
         </div>
       </Link>
 
       {/* Size Offcanvas */}
 
       <div
-        className="offcanvas offcanvas-bottom mb-0 pb-0"
+        className="offcanvas offcanvas-bottom pb-0"
         tabIndex="-1"
         id={`size_${props.id}`}
         aria-labelledby={`offcanvasBottomLabel_${props.id}`}
@@ -121,14 +124,14 @@ const Items = (props) => {
 
           <div className="button-container pb-3 mt-4">
             {props &&
-              props?.size &&
-              props?.size?.map((size, index) => (
+              props?.sizes &&
+              props?.sizes?.map((size, index) => (
                 <button
                   key={index}
                   className={`size-button w-100 ${
                     selectedSizes.includes(size) ? "selected" : ""
                   }`}
-                  onClick={() => handleSizeSelection(size)}
+                  onClick={() => handleSizerSelection(size)}
                   style={{
                     backgroundColor: selectedSizes.includes(size)
                       ? "#FF7F00"
@@ -196,4 +199,4 @@ const Items = (props) => {
   );
 };
 
-export default Items;
+export default Itemsgrid;

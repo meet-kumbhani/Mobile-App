@@ -38,10 +38,6 @@ const CartPage = () => {
     }
   };
 
-  // const updateQuantityInAPI = (itemId, updatedQuantity) => {
-  //   axios.patch(`${cartURL}/${itemId}`, { quantity: updatedQuantity });
-  // };
-
   let allitemtotal = cartdata
     ? cartdata.reduce(
         (total, item) => total + (item?.price * item?.quantity || 0),

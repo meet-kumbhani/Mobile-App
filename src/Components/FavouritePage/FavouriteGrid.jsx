@@ -19,6 +19,7 @@ import {
 } from "../../toolkit/slice";
 import { useDispatch, useSelector } from "react-redux";
 import { favouriteURL } from "../../config/url";
+import Favgrid from "./Favgrid";
 
 const FavouriteGrid = () => {
   const [value, setValue] = useState([200, 370]);
@@ -188,56 +189,20 @@ const FavouriteGrid = () => {
 
       <section className="row pt-4">
         {filteredData?.map((item) => (
-          <div className="col-6 pb-4" key={item.id}>
-            <div style={{ position: "relative" }}>
-              <img
-                src={item.image}
-                className="product-image2"
-                height={"200px"}
-                width={"100%"}
-              />
-              <CloseIcon
-                className="closeicon"
-                onClick={() => deleteProduct(item.id)}
-              />
-              <Fab
-                aria-label="like"
-                style={{
-                  position: "absolute",
-                  bottom: "-20px",
-                  right: "0px",
-                  zIndex: "1",
-                  color: "orange",
-                  backgroundColor: "white",
-                  height: "45px",
-                  width: "45px",
-                }}
-                onClick={() => addToCartHandler(item)}
-              >
-                <img
-                  src="../cart.svg"
-                  style={{ height: "56px", width: "56px", marginTop: "11px" }}
-                />
-              </Fab>
-            </div>
-            <div className="d-flex flex-column">
-              <Rating
-                name="size-small"
-                className="my-1"
-                defaultValue={item.rating}
-                size="small"
-              />
-              <span className="color">{item.brand}</span>
-              <span className="fs-3 fw-bold">{item.type}</span>
-              <div className="d-flex">
-                <span className="me-1 color">Color:</span>
-                <span>{item.color}</span>
-                <span className="ms-3 color">Size: </span>
-                <span>{item.size}</span>
-              </div>
-              <span className="fs-5 fw-bold">$ {item.price}</span>
-            </div>
-          </div>
+          <>
+            <Favgrid
+              image={item.image}
+              rating={item.rating}
+              price={item.price}
+              type={item.type}
+              brand={item.brand}
+              size={item.size}
+              id={item.id}
+              productId={item.productId}
+              quantity={item.quantity}
+              color={item.color}
+            />
+          </>
         ))}
       </section>
 

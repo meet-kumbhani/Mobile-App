@@ -4,9 +4,6 @@ import Form from "react-bootstrap/Form";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
-import Rating from "@mui/material/Rating";
-import Fab from "@mui/material/Fab";
-import CloseIcon from "@mui/icons-material/Close";
 import "../FavouritePage/FavouritePage.css";
 import Footer from "../Footerpart/Footer";
 import { Link } from "react-router-dom";
@@ -14,11 +11,12 @@ import axios from "axios";
 import Slider from "@mui/material/Slider";
 import {
   addToCart,
+  cartData,
   favouriteData,
   removeFromFavourite,
 } from "../../toolkit/slice";
 import { useDispatch, useSelector } from "react-redux";
-import { favouriteURL } from "../../config/url";
+import Favitem from "./Favitem";
 
 const FavouritePageList = () => {
   const [value, setValue] = useState([200, 370]);
@@ -29,29 +27,16 @@ const FavouritePageList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const favoritedata = useSelector((state) => state.data.favouriteData);
+  const cartdata = useSelector((i) => i.data.cartData);
 
   useEffect(() => {
     dispatch(favouriteData());
+    dispatch(cartData(cartdata));
   }, [dispatch]);
 
   useEffect(() => {
     setFilteredData(favoritedata);
   }, [favoritedata]);
-
-  const addToCartHandler = (product) => {
-    dispatch(addToCart(product));
-  };
-
-  const deleteProduct = (itemId) => {
-    axios
-      .delete(`${favouriteURL}/${itemId}`)
-      .then(() => {
-        dispatch(removeFromFavourite(itemId));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   function valuetext(value) {
     return `${value}°C`;
@@ -186,65 +171,20 @@ const FavouritePageList = () => {
 
       <section>
         {filteredData?.map((item, index) => (
-          <div className="product mt-4" key={item.id}>
-            <div className="row mb-4" style={{ position: "relative" }}>
-              <div className="col-3">
-                <img
-                  src={item.image}
-                  className="product-image"
-                  height={"140px"}
-                  width={"100px"}
-                />
-              </div>
-              <div className="col-9 ps-5">
-                <div className="d-flex flex-column">
-                  <div className="d-flex justify-content-between">
-                    <span className="mt-2 color">{item.type}</span>
-                    <CloseIcon
-                      className="mt-2 me-2 color"
-                      onClick={() => deleteProduct(item.id)}
-                    />
-                  </div>
-                  <span className="fs-3 fw-bold">{item.brand}</span>
-                  <div className="d-flex">
-                    <span className="me-1 color">Color : </span>
-                    <span>{item.color}</span>
-                    <span className="ms-3 me-1 color">Size : </span>
-                    <span>{item.size}</span>
-                  </div>
-                  <div className="d-flex justify-content-between mt-2">
-                    <span className="fs-6 fw-bold">$ {item.price}</span>
-                    <Rating
-                      name="size-small"
-                      className="mt-1 mb-1 me-5"
-                      defaultValue={item.rating}
-                      size="small"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <Fab
-                aria-label="like"
-                style={{
-                  position: "absolute",
-                  bottom: "-20px",
-                  right: "13px",
-                  zIndex: "1",
-                  color: "orange",
-                  backgroundColor: "white",
-                  height: "45px",
-                  width: "45px",
-                }}
-                onClick={() => addToCartHandler(item)}
-              >
-                <img
-                  src="../cart.svg"
-                  style={{ height: "56px", width: "56px", marginTop: "11px" }}
-                />
-              </Fab>
-            </div>
-          </div>
+          <>
+            <Favitem
+              image={item.image}
+              rating={item.rating}
+              price={item.price}
+              type={item.type}
+              brand={item.brand}
+              size={item.size}
+              id={item.id}
+              productId={item.productId}
+              quantity={item.quantity}
+              color={item.color}
+            />
+          </>
         ))}
       </section>
       <Footer />
@@ -405,9 +345,9 @@ const FavouritePageList = () => {
 
       {/* Sort By Filters */}
 
-      <div className="container-fluid d-flex justify-content-end fixed-bottom">
+      <div className="container-fluid d-flex justify-content-end fixed-bottom ">
         <div
-          className="offcanvas offcanvas-bottom"
+          className="offcanvas offcanvas-bottom pb-0"
           tabIndex="-1"
           id="offcanvasBottom"
           aria-labelledby="offcanvasBottomLabel"
@@ -431,10 +371,10 @@ const FavouritePageList = () => {
             </p>
             <p className="ps-4 py-3 m-0">Newest</p>
             <p className="ps-4 py-3 m-0">Customer review</p>
-            <p className="ps-4 py-3 m-0" onClick={() => sortByPrice("asc")}>
+            <p className="ps-4 py-3 m-0" onClick={() => sortByPrice("desc")}>
               Price: lowest to high
             </p>
-            <p className="ps-4 py-3 m-0" onClick={() => sortByPrice("desc")}>
+            <p className="ps-4 py-3 m-0" onClick={() => sortByPrice("asc")}>
               Price: highest to low
             </p>
           </div>

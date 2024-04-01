@@ -38,6 +38,9 @@
   display: flex;
   align-items: center;
 }
+.filter-buttons {
+  padding: 0% !important;
+}
 
 .filter-part .filter-icon2,
 .filter-part .swap-icon2,
@@ -65,7 +68,7 @@
   height: fit-content;
   overflow-x: scroll;
   background-color: #f9f9f9;
-  padding-bottom: 15%;
+  padding-bottom: 13%;
 }
 
 .offcanvas.offcanvas-bottom {

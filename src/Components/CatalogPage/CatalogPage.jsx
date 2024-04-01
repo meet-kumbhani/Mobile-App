@@ -26,14 +26,12 @@ const CatalogPage = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
   const [filterValue, setFilterValue] = useState("");
-  const [liked, setliked] = useState({});
   const { productId } = useParams();
   const [value, setValue] = useState([0, 1000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
   const [sizefilter, setSizefilter] = useState([]);
-  const [addfavourite, setAddfavourite] = useState(false);
   const dispatch = useDispatch();
   // const favoritedata = useSelector((state) => state.data.favouriteData);
   // console.log(favoritedata, "fd=====");
@@ -280,9 +278,11 @@ const CatalogPage = () => {
                 price={item.price}
                 type={item.type}
                 brand={item.brand}
-                sizes={item.size}
+                size={item.size}
+                color={item.color}
                 id={item.id}
                 productId={item.productId}
+                quantity={item.quantity}
               />
             ))}
         </section>

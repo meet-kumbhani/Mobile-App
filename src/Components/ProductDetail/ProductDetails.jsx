@@ -66,7 +66,9 @@ const ProductDetails = () => {
         item.productId === details?.productId &&
         item.brand === details?.brand &&
         item.type === details?.type &&
-        item.price === details?.price
+        item.price === details?.price &&
+        item.color === selectedColor[0] &&
+        item.size === selectedSizes[0]
     );
     setAddcart(isProductInCart);
 
@@ -75,10 +77,12 @@ const ProductDetails = () => {
         item.productId === details?.productId &&
         item.brand === details?.brand &&
         item.type === details?.type &&
-        item.price === details?.price
+        item.price === details?.price &&
+        item.color === selectedColor[0] &&
+        item.size === selectedSizes[0]
     );
     setAddfavourite(isProductInFavourite);
-  }, [cartItems, details, favoritedata, addcart]);
+  }, [cartItems, details, favoritedata, addcart, selectedColor, selectedSizes]);
 
   const handleSizeSelection = (size) => {
     if (selectedSizes.includes(size)) {
@@ -101,8 +105,8 @@ const ProductDetails = () => {
       dispatch(
         addToCart({
           ...details,
-          size: selectedSizes,
-          color: selectedColor,
+          size: selectedSizes[0],
+          color: selectedColor[0],
         })
       );
       setAddcart(true);
@@ -119,8 +123,8 @@ const ProductDetails = () => {
       dispatch(
         addToFavourites({
           ...details,
-          size: selectedSizes,
-          color: selectedColor,
+          size: selectedSizes[0],
+          color: selectedColor[0],
         })
       );
       setAddfavourite(true);
@@ -265,6 +269,13 @@ const ProductDetails = () => {
                       onClick={() => addFavourites(details.id)}
                       data-bs-dismiss="offcanvas"
                       aria-label="Close"
+                      style={{
+                        backgroundColor: "rgba(255, 127, 0, 1)",
+                        color: "white",
+                      }}
+                      disabled={
+                        selectedSizes.length === 0 || selectedColor.length === 0
+                      }
                     >
                       ADD FAVOURITE
                     </button>
@@ -409,19 +420,11 @@ const ProductDetails = () => {
                   <a href="" className="text-dark text-decoration-none">
                     Shipping info
                   </a>
-                  <a href="" className="text-dark">
+                  <Link className="nav-link">
                     <ChevronRightIcon />
-                  </a>
+                  </Link>
                 </div>
-                <hr />
-                <div className="shiping-support d-flex justify-content-between container-fluid">
-                  <a href="" className="text-dark text-decoration-none">
-                    Support
-                  </a>
-                  <a href="" className="text-dark">
-                    <ChevronRightIcon />
-                  </a>
-                </div>
+
                 <hr />
               </div>
             </div>
