@@ -3,24 +3,19 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchIcon from "@mui/icons-material/Search";
 import "../ProfilePage/ProfilePage.css";
 import Footer from "../Footerpart/Footer";
-import { Link } from "react-router-dom";
-import { cartURL } from "../../config/url";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 import "../ProfilePage/ProfilePage.css";
+import { useDispatch, useSelector } from "react-redux";
+import { cartData } from "../../toolkit/slice";
 
 const MyOrder = () => {
-  const [order, setorder] = useState([]);
+  const cartdata = useSelector((cart) => cart.data.cartData);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios
-      .get(cartURL)
-      .then((res) => {
-        setorder(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    dispatch(cartData());
+  }, [dispatch]);
 
   const time = moment().format("DD-MM-YYYY");
 
@@ -32,16 +27,15 @@ const MyOrder = () => {
     <section className="container-fluid order-page">
       <section className="top-part">
         <div className="pt-3 pb-2 d-flex justify-content-between">
-          <Link to="/profile" className="nav-link">
-            <ArrowBackIosNewIcon />
-          </Link>
+          <ArrowBackIosNewIcon onClick={() => navigate(-1)} />
+
           <SearchIcon className="fs-1" />
         </div>
         <h1 className="fw-bold mt-3 mb-4">My Orders</h1>
       </section>
 
       <section className="order-status">
-        {order.map((item) => (
+        {cartdata?.map((item) => (
           <div className="mt-4 order-details" key={item.id}>
             <div className="d-flex justify-content-between ps-4 pe-4 pt-3 pb-2">
               <span>Order: {generateOrderID()}</span>

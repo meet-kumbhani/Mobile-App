@@ -1,24 +1,22 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchIcon from "@mui/icons-material/Search";
 import Form from "react-bootstrap/Form";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
-import Rating from "@mui/material/Rating";
-import Fab from "@mui/material/Fab";
 import "../CatalogPage/CatalogPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Link } from "react-router-dom";
 import Footer from "../Footerpart/Footer";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Slider from "@mui/material/Slider";
-import { addToFavourites, favouriteData } from "../../toolkit/slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Items from "./Items";
+import { favouriteData } from "../../toolkit/slice";
+import { CircularProgress } from "@mui/material";
 
 const CatalogPage = () => {
   const [product, setProduct] = useState([]);
@@ -32,9 +30,9 @@ const CatalogPage = () => {
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
   const [sizefilter, setSizefilter] = useState([]);
+  const [loading, setloading] = useState(true);
   const dispatch = useDispatch();
-  // const favoritedata = useSelector((state) => state.data.favouriteData);
-  // console.log(favoritedata, "fd=====");
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(favouriteData());
@@ -48,27 +46,15 @@ const CatalogPage = () => {
           return res.productId == productId;
         });
         setProduct(data);
-
         const sizes = [...new Set(data.flatMap((item) => item.size))];
         setSizefilter(sizes);
-        // console.log(sizes, "<==== sizes");
+        setloading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        setloading(false);
       });
   }, [productId]);
-
-  // useEffect(() => {
-
-  //   const abc = favoritedata?.find(
-  //     (item) =>
-  //       item.productId === product.productId &&
-  //       item.brand === product.brand &&
-  //       item.type === product.type &&
-  //       item.price === product.price
-  //   );
-  //   setAddfavourite(abc);
-  // }, [product, favoritedata]);
 
   const sortProductsByPrice = (order) => {
     const sortedProducts = [...product].sort((a, b) => {
@@ -170,37 +156,6 @@ const CatalogPage = () => {
     setFilterValue("");
   };
 
-  // let addFavourites = (productId) => {
-  //   const selectedProduct = product.find((item) => item.id === productId);
-
-  //   if (selectedProduct && selectedSizes && selectedColors) {
-  //     const isAlreadyFavorited = favoritedata.some(
-  //       (item) =>
-  //         item.productId === selectedProduct.productId &&
-  //         item.brand === selectedProduct.brand &&
-  //         item.type === selectedProduct.type &&
-  //         item.price === selectedProduct.price
-  //     );
-  //     setAddfavourite(isAlreadyFavorited);
-  //     if (isAlreadyFavorited) {
-  //       setAddfavourite(isAlreadyFavorited);
-  //       console.log("Product is already in favorites");
-  //     } else {
-  //       dispatch(
-  //         addToFavourites({
-  //           ...selectedProduct,
-  //           size: selectedSizes,
-  //           color: selectedColors,
-  //         })
-  //       );
-  //       setSelectedSizes([]);
-  //       setSelectedColors([]);
-  //     }
-  //   } else {
-  //     console.log("Product Not Add");
-  //   }
-  // };
-
   const filteredProducts = product?.filter((item) =>
     item?.brand?.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -211,83 +166,90 @@ const CatalogPage = () => {
 
   return (
     <>
-      <section className="container catalog-page">
-        {/* Top Part */}
+      {loading ? (
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ height: "90vh" }}
+        >
+          <CircularProgress />
+        </div>
+      ) : (
+        <section className="container catalog-page">
+          {/* Top Part */}
 
-        <section className="top-part">
-          <div className="pt-3 d-flex justify-content-between">
-            <Link to={`/subcategory/${productId}`} className="nav-link">
-              <ArrowBackIosNewIcon />
-            </Link>
-            <div className="search-bar">
-              {isSearchOpen ? (
-                <input
-                  className="border-0"
-                  type="text"
-                  placeholder="Search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              ) : (
-                <SearchIcon onClick={handleSearchClick} />
-              )}
+          <section className="top-part">
+            <div className="pt-3 d-flex justify-content-between">
+              <ArrowBackIosNewIcon onClick={() => navigate(-1)} />
+              <div className="search-bar">
+                {isSearchOpen ? (
+                  <input
+                    className="border-0"
+                    type="text"
+                    placeholder="Search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                ) : (
+                  <SearchIcon onClick={handleSearchClick} />
+                )}
+              </div>
             </div>
-          </div>
-          {product?.map((item) => (
-            <>
-              <h1 key={item.id} className="mt-4 fw-bold">
-                {item.name || item.hoodietype || item.blacktype}
-              </h1>
-            </>
-          ))}
-
-          <div className="d-flex mt-3 filter-part">
-            <FilterListIcon
-              className="filter-icon2"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#AllFilters"
-              aria-controls="offcanvasBottom"
-            />
-            <Form.Control
-              type="text"
-              className="w-25 filter"
-              placeholder="Filters"
-            />
-            <SwapVertIcon
-              className="swap-icon2"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasBottom"
-              aria-controls="offcanvasBottom"
-            />
-            <span>{filterValue || "Sort By"}</span>
-            <Link to={`/catalog2/${productId}`} className="nav-link ms-auto">
-              <ViewModuleIcon className="view-icon2" />
-            </Link>
-          </div>
-        </section>
-
-        {/* Product List */}
-
-        <section>
-          {filteredProducts
-            ?.filter((item) => item.image)
-            ?.map((item) => (
-              <Items
-                image={item.image}
-                rating={item.rating}
-                price={item.price}
-                type={item.type}
-                brand={item.brand}
-                size={item.size}
-                color={item.color}
-                id={item.id}
-                productId={item.productId}
-                quantity={item.quantity}
-              />
+            {product?.map((item) => (
+              <>
+                <h1 key={item.id} className="mt-4 fw-bold">
+                  {item.name || item.hoodietype || item.blacktype}
+                </h1>
+              </>
             ))}
+
+            <div className="d-flex mt-3 filter-part">
+              <FilterListIcon
+                className="filter-icon2"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#AllFilters"
+                aria-controls="offcanvasBottom"
+              />
+              <Form.Control
+                type="text"
+                className="w-25 filter"
+                placeholder="Filters"
+              />
+              <SwapVertIcon
+                className="swap-icon2"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasBottom"
+                aria-controls="offcanvasBottom"
+              />
+              <span>{filterValue || "Sort By"}</span>
+              <Link to={`/catalog2/${productId}`} className="nav-link ms-auto">
+                <ViewModuleIcon className="view-icon2" />
+              </Link>
+            </div>
+          </section>
+
+          {/* Product List */}
+
+          <section>
+            {filteredProducts
+              ?.filter((item) => item.image)
+              ?.map((item) => (
+                <Items
+                  image={item.image}
+                  rating={item.rating}
+                  price={item.price}
+                  type={item.type}
+                  brand={item.brand}
+                  size={item.size}
+                  color={item.color}
+                  id={item.id}
+                  productId={item.productId}
+                  quantity={item.quantity}
+                />
+              ))}
+          </section>
+          <Footer />
         </section>
-        <Footer />
-      </section>
+      )}
 
       {/* Sort By Filter */}
 

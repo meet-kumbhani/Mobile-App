@@ -12,7 +12,6 @@ const Favgrid = (props) => {
   const dispatch = useDispatch();
   const [addcart, setAddcart] = useState(false);
   const cartdata = useSelector((i) => i.data.cartData);
-  console.log(cartdata, "Cartdata");
 
   useEffect(() => {
     const isProductInCart = cartdata?.some(

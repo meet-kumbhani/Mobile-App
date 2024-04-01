@@ -14,6 +14,7 @@ import axios from "axios";
 import Slider from "@mui/material/Slider";
 import {
   addToCart,
+  cartData,
   favouriteData,
   removeFromFavourite,
 } from "../../toolkit/slice";
@@ -30,9 +31,11 @@ const FavouriteGrid = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const favoritedata = useSelector((state) => state.data.favouriteData);
+  const cartdata = useSelector((i) => i.data.cartData);
 
   useEffect(() => {
     dispatch(favouriteData());
+    dispatch(cartData(cartdata));
   }, [dispatch]);
 
   useEffect(() => {

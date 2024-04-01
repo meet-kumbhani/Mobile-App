@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchIcon from "@mui/icons-material/Search";
 import "../CategoryPage/CategoryPage.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Footer from "../Footerpart/Footer";
 import axios from "axios";
+import { mainURL } from "../../config/url";
 
 const CategoryList = () => {
   const [category, setcategory] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { parentId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/products`)
+      .get(mainURL)
       .then((response) => {
         const data = response.data.filter((res) => {
           return res.parentId == parentId;
@@ -38,9 +40,8 @@ const CategoryList = () => {
     <section className="container">
       <section className="top-part">
         <div className="pt-3 pb-2 d-flex justify-content-between">
-          <Link to="/category" className="nav-link">
-            <ArrowBackIosNewIcon />
-          </Link>
+          <ArrowBackIosNewIcon onClick={() => navigate(-1)} />
+
           <h5 className="fw-bold">Categories</h5>
           <div>
             <SearchIcon

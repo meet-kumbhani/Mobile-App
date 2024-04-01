@@ -6,7 +6,7 @@ import "../ProductDetail/ProductDetail.css";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { cartURL, mainURL } from "../../config/url";
 import Fab from "@mui/material/Fab";
@@ -31,6 +31,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state?.data?.cartData);
   const favoritedata = useSelector((state) => state.data.favouriteData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(cartData());
@@ -143,9 +144,8 @@ const ProductDetails = () => {
 
       <section className="top-part container-fluid">
         <div className="pt-3 pb-3 d-flex justify-content-between">
-          <Link to="/catalog" className="nav-link">
-            <ArrowBackIosNewIcon />
-          </Link>
+          <ArrowBackIosNewIcon onClick={() => navigate(-1)} />
+
           {details ? (
             <span className="fw-bold">{details.type}</span>
           ) : (

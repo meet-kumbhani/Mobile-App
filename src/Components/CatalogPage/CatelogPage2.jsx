@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchIcon from "@mui/icons-material/Search";
 import Form from "react-bootstrap/Form";
@@ -32,6 +32,7 @@ const CatelogPage2 = () => {
   const [selectedColors, setSelectedColors] = useState([]);
   const [sizefilter, setSizefilter] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(favouriteData());
@@ -159,7 +160,7 @@ const CatelogPage2 = () => {
 
       <section className="top-part">
         <div className="pt-3 d-flex justify-content-between">
-          <ArrowBackIosNewIcon />
+          <ArrowBackIosNewIcon onClick={() => navigate(-2)} />
           <SearchIcon className="fs-1" />
         </div>
 

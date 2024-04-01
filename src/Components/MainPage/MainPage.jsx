@@ -32,13 +32,13 @@ const MainPage = () => {
             {allData
               ?.filter((check) => check.check == "Check")
               ?.map((check) => (
-                <div className=" container-fluid" key={check.id}>
+                <div className="" key={check.id}>
                   <Link
                     to={`/catalog/${check.productId}`}
                     className="text-decoration-none text-dark"
                   >
                     <button className="rounded-pill w-50 Check-button p-2">
-                      <b>{check.check}</b>
+                      {check.check}
                     </button>
                   </Link>
                 </div>

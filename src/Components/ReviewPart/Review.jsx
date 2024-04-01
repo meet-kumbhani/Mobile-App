@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Form from "react-bootstrap/Form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { mainURL } from "../../config/url";
 import moment from "moment";
@@ -19,6 +19,7 @@ const Review = () => {
   const [showWithPhotoOnly, setShowWithPhotoOnly] = useState(false);
   const fileInputRef = useRef(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleLogoClick = () => {
     fileInputRef.current.click();
@@ -109,9 +110,7 @@ const Review = () => {
   return (
     <section className="review-part">
       <div className="pt-3 container-fluid">
-        <Link to="/productdetails" className="nav-link">
-          <ArrowBackIosNewIcon />
-        </Link>
+        <ArrowBackIosNewIcon onClick={() => navigate(-1)} />
       </div>
 
       <section className="heading">

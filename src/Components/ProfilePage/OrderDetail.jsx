@@ -3,7 +3,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchIcon from "@mui/icons-material/Search";
 import "../ProfilePage/ProfilePage.css";
 import Footer from "../Footerpart/Footer";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { cartURL } from "../../config/url";
 import moment from "moment";
@@ -11,6 +11,7 @@ import moment from "moment";
 const OrderDetail = () => {
   const [orderdetails, setorderdetails] = useState([]);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -30,9 +31,8 @@ const OrderDetail = () => {
       <section className="container">
         <section className="top-part">
           <div className="pt-3 pb-2 d-flex justify-content-between">
-            <Link to="/myorder" className="nav-link">
-              <ArrowBackIosNewIcon />
-            </Link>
+            <ArrowBackIosNewIcon onClick={() => navigate(-1)} />
+
             <h5 className="fw-bold">Order Details</h5>
             <SearchIcon className="fs-1" />
           </div>
