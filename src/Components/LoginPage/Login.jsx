@@ -37,10 +37,7 @@ const Login = () => {
 
       if (foundUser) {
         const { id, Name } = foundUser;
-        localStorage.setItem(
-          "loggedInUser",
-          JSON.stringify({ Name, id, ...loginData })
-        );
+        localStorage.setItem("loggedInUser", JSON.stringify({ Name, id }));
         const snackbar = enqueueSnackbar("Login Successful", {
           variant: "success",
         });

@@ -64,12 +64,12 @@ const MainPage = () => {
           </div>
           <div className="row">
             <div className="col col-sm-6 d-flex flex-column">
-              <div className="d-flex justify-content-center mt-auto">
+              <div className="container d-flex justify-content-start mt-auto">
                 <Link to="/sale" className="summersale">
                   {allData
                     ?.filter((summer) => summer.summertype === "Summer")
                     .map((summer) => (
-                      <div key={summer.id}>
+                      <div key={summer.id} className="">
                         <Link
                           to={`/subcategory/${summer.parentId}`}
                           className="nav-link"

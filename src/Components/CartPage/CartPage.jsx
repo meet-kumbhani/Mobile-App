@@ -14,8 +14,9 @@ import {
 } from "../../toolkit/slice";
 import { cartURL } from "../../config/url";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-const CartPage = () => {
+const CartPage = ({ setTotalAmount }) => {
   const dispatch = useDispatch();
   const [promoCode, setPromoCode] = useState("");
   const [discountedTotal, setDiscountedTotal] = useState(0);
@@ -36,6 +37,13 @@ const CartPage = () => {
       const updatedQuantity = currentQuantity - 1;
       dispatch(updateCartItemQuantity({ itemId, quantity: updatedQuantity }));
     }
+  };
+
+  const calculateTotalAmount = () => {
+    return cartdata.reduce(
+      (total, item) => total + (item?.price * item?.quantity || 0),
+      0
+    );
   };
 
   let allitemtotal = cartdata
@@ -103,6 +111,9 @@ const CartPage = () => {
     setPromoCode(event.target.value);
   };
 
+  const totalAmount = calculateTotalAmount();
+  setTotalAmount(totalAmount);
+
   return (
     <>
       <section className="container-fluid cart-page">
@@ -117,7 +128,11 @@ const CartPage = () => {
             <div className="product" key={cartitems.id}>
               <div className="row mb-4">
                 <div className="col-3">
-                  <img src={cartitems.image} className="cartproduct-image" />
+                  <img
+                    src={cartitems.image}
+                    alt="not found"
+                    className="cartproduct-image"
+                  />
                 </div>
                 <div className="col-9 ps-5">
                   <div className="d-flex justify-content-between">
@@ -208,9 +223,9 @@ const CartPage = () => {
             )}
           </div>
 
-          <button className="w-100 checkout-btn p-2 mb-4 rounded-pill border-0 mt-3">
-            CHECK OUT
-          </button>
+          <Link to="/shippingaddress">
+            <button className="checkout-btn">CHECK OUT</button>
+          </Link>
         </section>
         <Footer />
       </section>

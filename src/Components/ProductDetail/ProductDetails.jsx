@@ -404,13 +404,10 @@ const ProductDetails = () => {
               </div>
               <hr />
               <div className="">
-                <div className="shiping-support d-flex justify-content-between container-fluid">
-                  <a href="" className="text-dark text-decoration-none">
-                    Shipping info
-                  </a>
-                  <Link className="nav-link">
-                    <ChevronRightIcon />
-                  </Link>
+                <div className="shiping-support container-fluid">
+                  <h5>Shipping info</h5>
+                  <span>Ship From:- RK COLLECTION</span>
+                  <p>Sold by:- MK</p>
                 </div>
 
                 <hr />
@@ -427,7 +424,7 @@ const ProductDetails = () => {
       <section className="sale-part">
         <div className="container-fluid new-collection mt-3 d-flex justify-content-between align-items-baseline">
           <div className="new-leftpart">
-            <h4 className="sub-title">You can also like this</h4>
+            <h3 className="sub-title">You can also like this</h3>
           </div>
           <div className="new-rightpart">{related.length - 1} items</div>
         </div>
@@ -465,7 +462,7 @@ const ProductDetails = () => {
                             width: "38px",
                           }}
                         >
-                          <FavoriteBorderOutlinedIcon className="fs-5" />
+                          <FavoriteBorderOutlinedIcon className="fs-5 related-icon" />
                         </Fab>
                       </div>
                       <div className="d-flex flex-column">

@@ -117,9 +117,9 @@ const FavouritePageList = () => {
         <div className="empty-cart container">
           <div className="text-center">
             <img
-              src="https://rukminim2.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRksfFMIvnfhxW_Dm6Q7ybZ7Y5k_Uywgh8RJA&usqp=CAU"
               alt="No items"
-              className="w-100"
+              className="w-100 mb-4"
             />
             <h2>Empty Favourite Page</h2>
           </div>

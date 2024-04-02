@@ -72,12 +72,13 @@ const Itemsgrid = (props) => {
             style={{
               position: "absolute",
               bottom: "-20px",
-              right: "0",
+              right: "1px",
               zIndex: "1",
               color: "orange",
               backgroundColor: "white",
               height: "45px",
               width: "45px",
+              boxShadow: "0px 4px 4px 0px #00000014",
             }}
             aria-label="like"
             className="favoutite-icon"
@@ -170,7 +171,7 @@ const Itemsgrid = (props) => {
               ))}
           </div>
         </div>
-        <div className="pb-3 container-fluid">
+        <div className="pb-3 container">
           {addfavourite ? (
             <Link
               to="/favourite"
@@ -180,7 +181,7 @@ const Itemsgrid = (props) => {
             </Link>
           ) : (
             <button
-              className="border-0 rounded-pill w-100 p-3 btn"
+              className="border-0 rounded-pill w-100 p-3 btn addtocart-btn"
               style={{
                 backgroundColor: "rgba(255, 127, 0, 1)",
                 color: "white",

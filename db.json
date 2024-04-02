@@ -4,8 +4,19 @@
       "Name": "KKK",
       "Email": "kkk@gmail.com",
       "Password": "111",
-      "Birthdate": "30/02/2001",
-      "id": 1000
+      "id": 100,
+      "paymentmethod": "",
+      "shippingaddress": [
+        {
+          "addressid": 0,
+          "address": "Street no - 5",
+          "fullName": "Kuntesh",
+          "city": "Rajkot",
+          "state": "Gujarat",
+          "zipCode": "381230",
+          "country": "India"
+        }
+      ]
     }
   ],
   "products": [
@@ -10533,7 +10544,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Comfortable athletic shoes for men.",
       "review": [
@@ -10554,7 +10565,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.5,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Stylish sneakers for everyday wear.",
       "review": [
@@ -10575,7 +10586,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.2,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Durable and comfortable sandals for summer.",
       "review": [
@@ -10596,7 +10607,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.7,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Stylish and sturdy boots for outdoor adventures.",
       "review": [
@@ -10617,7 +10628,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.8,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Classic loafers for a sophisticated look.",
       "review": [
@@ -10638,7 +10649,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.9,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Elegant heels for special occasions.",
       "review": [
@@ -10659,7 +10670,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.3,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Comfortable flip flops for beach days.",
       "review": [
@@ -10680,7 +10691,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.6,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Versatile sneakers for daily wear.",
       "review": [
@@ -10701,7 +10712,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.4,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Outdoor sandals perfect for hiking.",
       "review": [
@@ -10722,7 +10733,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.7,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Iconic boots known for their durability.",
       "review": [
@@ -10743,7 +10754,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.5,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Stylish loafers for everyday comfort.",
       "review": [
@@ -10764,7 +10775,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.8,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Classic black heels for any occasion.",
       "review": [
@@ -10785,7 +10796,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.1,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Lightweight and comfortable flip flops.",
       "review": [
@@ -10806,7 +10817,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.4,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Classic sneakers with a trendy vibe.",
       "review": [
@@ -10827,7 +10838,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.6,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Comfortable and durable leather sandals.",
       "review": [
@@ -10848,7 +10859,7 @@
       "type": "Shoes",
       "color": ["blue", "yellow", "white", "black", "green", "red"],
       "rating": 4.6,
-      "size": ["S", "M", "L", "XL", "XXL"],
+      "size": [6, 7, 8, 9, 10],
       "quantity": 1,
       "description": "Comfortable and durable leather sandals.",
       "review": [

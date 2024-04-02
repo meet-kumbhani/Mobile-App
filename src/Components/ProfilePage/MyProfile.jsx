@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "../ProfilePage/ProfilePage.css";
 import Footer from "../Footerpart/Footer";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { cartData, fetchAllData } from "../../toolkit/slice";
 
 const MyProfile = () => {
+  const cartitem = useSelector((items) => items.data.cartData);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  let orderlength = cartitem?.length;
+
+  useEffect(() => {
+    dispatch(cartData());
+    dispatch(fetchAllData());
+  }, [dispatch]);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -15,9 +25,6 @@ const MyProfile = () => {
   return (
     <section className="container-fluid profile-page">
       <section className="top-part mt-3">
-        <div className="d-flex justify-content-end">
-          <SearchIcon className="search-icon" />
-        </div>
         <h1 className="fw-bold mt-3 mb-4">My Profile</h1>
       </section>
 
@@ -44,7 +51,9 @@ const MyProfile = () => {
           <div className="d-flex ps-2 mt-2 pt-3 pb-2">
             <div className="col-11 d-flex flex-column">
               <span className="order mb-1">My orders</span>
-              <span className="order-number">Already have 12 orders</span>
+              <span className="order-number">
+                Already have {orderlength} orders
+              </span>
             </div>
 
             <div className="col-1 mt-2">
@@ -52,16 +61,6 @@ const MyProfile = () => {
             </div>
           </div>
         </Link>
-
-        <div className="d-flex ps-2 mt-2 pt-3 pb-2">
-          <div className="col-11 d-flex flex-column">
-            <span className="order">My services</span>
-            <span className="order-number">Already have 12 services</span>
-          </div>
-          <div className="col-1 mt-2">
-            <ChevronRightIcon className="right-icon" />
-          </div>
-        </div>
 
         <div className="d-flex ps-2 mt-2 pt-3 pb-2">
           <div className="col-11 d-flex flex-column">
@@ -72,18 +71,6 @@ const MyProfile = () => {
             <ChevronRightIcon className="right-icon" />
           </div>
         </div>
-
-        <Link to="/review" className="nav-link">
-          <div className="d-flex ps-2 mt-2 pt-3 pb-2">
-            <div className="col-11 d-flex flex-column">
-              <span className="order">My reviews</span>
-              <span className="order-number">Reviews for 4 items</span>
-            </div>
-            <div className="col-1 mt-2">
-              <ChevronRightIcon className="right-icon" />
-            </div>
-          </div>
-        </Link>
 
         <Link to="/settings" className="nav-link">
           <div className="d-flex ps-2 mt-2 pt-3 pb-2">

@@ -12,6 +12,8 @@ export const saveUserInfo = createAsyncThunk(
     'data/saveUserInfo',
     async (userData) => {
         try {
+            const a = await axios.delete(`${userInfoURL}/${100}`);
+            console.log("delete...")
             const response = await axios.post(userInfoURL, userData);
             return response.data;
         } catch (error) {

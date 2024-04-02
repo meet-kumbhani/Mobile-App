@@ -51,11 +51,6 @@
   cursor: pointer;
 }
 
-.cart-page .cartprouct-part .checkout-btn {
-  background-color: #ff7f00;
-  color: #ffffff;
-}
-
 .empty-cart {
   display: flex;
   justify-content: center;
@@ -76,4 +71,121 @@
 .dropdown-item {
   padding: 0px 5px;
   font-size: 12px;
+}
+
+.checkout-part .detail-part {
+  background-color: #f9f9f9;
+}
+
+.detail-part .user-address {
+  background-color: aquamarine;
+}
+
+.checkout-page .top-part,
+.shipping-address-page .top-part {
+  background-color: white;
+  box-shadow: 0px 4px 24px 0px #00000014;
+}
+
+.checkout-page .details-part {
+  height: 90vh;
+}
+
+.checkout-page .details-part .product {
+  box-shadow: 0px 1px 25px 0px #00000014;
+  background-color: white;
+}
+
+.shipping-address-page .details-part .product {
+  box-shadow: 0px 1px 25px 0px #00000014;
+  background-color: white;
+  margin-top: 30px;
+}
+
+.checkout-page .change-button {
+  margin-right: 6%;
+  color: #ff7f00;
+}
+
+.checkout-page .payment-img-part {
+  display: flex;
+  justify-content: space-around;
+}
+
+.checkout-page .payment-img-part img {
+  padding: 10px 12px;
+  border-radius: 15%;
+  box-shadow: 0px 1px 25px 0px #00000014;
+}
+
+.checkout-page .payment-icon {
+  height: 50px;
+  width: 65px;
+  background-color: white;
+}
+
+.checkout-page .color {
+  color: gray;
+}
+
+.checkout-page .details-part .checkout-btn,
+.cart-page .cartprouct-part .checkout-btn,
+.success-page .shopping-btn {
+  background-color: #ff7f00;
+  color: #ffffff;
+  width: 100%;
+  margin-top: 30px;
+  padding: 15px;
+  border-radius: 35px;
+  box-shadow: 0px 4px 8px 0px #d3262640;
+  border: 0;
+}
+
+.checkout-page .details-part .change,
+.shipping-address-page .details-part .change {
+  color: #ff7f00;
+}
+
+input[type="checkbox"].shipping-checkbox:checked {
+  accent-color: black;
+}
+
+.shipping-checkbox {
+  margin-top: 4px;
+  border-radius: 30px;
+}
+
+.plus-image {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10% 0;
+}
+
+.shipping-address-page .details-part .saveaddress-btn {
+  background-color: #ff7f00;
+  color: #ffffff;
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 35px;
+  box-shadow: 0px 4px 8px 0px #d3262640;
+  border: 0;
+}
+
+.shipping-address-page .details-part .offcanvas.show:not(.hiding) {
+  padding-bottom: 4%;
+}
+
+.success-page {
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.success-page .success-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 82vh;
 }

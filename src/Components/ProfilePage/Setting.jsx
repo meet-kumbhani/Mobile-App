@@ -22,6 +22,23 @@ const Setting = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
+    let storedData = localStorage.getItem("loggedInUser");
+    if (storedData) {
+      let userData = JSON.parse(storedData);
+      let userId = userData.id;
+      axios
+        .get(`${userInfoURL}/${userId}`)
+        .then((res) => {
+          const userData = res.data;
+          setLoggedInUserData(userData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
     const storedData = localStorage.getItem("loggedInUser");
     if (storedData) {
       const userData = JSON.parse(storedData);
@@ -48,28 +65,19 @@ const Setting = () => {
       newPassword === repeatNewPassword
     ) {
       const updatedUserData = { ...loggedInUserData, Password: newPassword };
-      const { Password, id } = updatedUserData;
-      console.log(updatedUserData);
-      localStorage.setItem("loggedInUser", JSON.stringify(updatedUserData));
+      const { id } = updatedUserData;
       setPasswordChangeSuccess(true);
       try {
-        const data = await axios.patch(`${userInfoURL}/${id}`, {
-          ...loggedInUserData,
-          Password: Password,
-          id: id,
-        });
-
-        console.log(data, "data");
+        const data = await axios.patch(`${userInfoURL}/${id}`, updatedUserData);
+        setPasswordChangeSuccess(true);
+        setLoggedInUserData(updatedUserData);
       } catch (error) {
         console.log(error, "err");
       }
     } else {
       setPasswordChangeSuccess(false);
     }
-    console.log("data");
   };
-
-  console.log();
   return (
     <section className="setting top-part">
       <Snackbar
@@ -94,7 +102,6 @@ const Setting = () => {
           <Link to="/profile" className="nav-link">
             <ArrowBackIosNewIcon />
           </Link>
-          <SearchIcon className="fs-1" />
         </div>
         <h1 className="fw-bold mt-3 mb-3">Settings</h1>
         <h6 className="mb-4">Personal Information</h6>
@@ -110,14 +117,6 @@ const Setting = () => {
                 variant="outlined"
                 type="text"
                 value={loggedInUserData ? loggedInUserData.Name : ""}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <TextField
-                className="input-field bg-white w-100"
-                variant="outlined"
-                type="date"
               />
             </Form.Group>
           </Form>

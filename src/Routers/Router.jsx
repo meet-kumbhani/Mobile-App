@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Review from "../Components/ReviewPart/Review";
 import ProductDetails from "../Components/ProductDetail/ProductDetails";
 import Setting from "../Components/ProfilePage/Setting";
@@ -17,8 +17,22 @@ import CategoryList from "../Components/CategoryPage/CategoryList";
 import Forgotpassword from "../Components/ForgotPage/Forgotpassword";
 import Signup from "../Components/SignUpPage/Signup";
 import Login from "../Components/LoginPage/Login";
+import Protected from "../Components/ProtectedRoute/Protected";
+import ShippingAddress from "../Components/CartPage/ShippingAddress";
+import Success from "../Components/CartPage/Success";
+import Checkout from "../Components/CartPage/Checkout";
 
 const Router = () => {
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const handleSetTotalAmount = (amount) => {
+    setTotalAmount(amount);
+  };
+
+  const handleSelectAddress = (address) => {
+    setSelectedAddress(address);
+  };
   return (
     <div>
       <BrowserRouter>
@@ -26,27 +40,98 @@ const Router = () => {
           <Route path="/" element={<Signup />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/mainpage" element={<MainPage />}></Route>
-          <Route path="/category" element={<CategoryPage />}></Route>
+          <Route
+            path="/mainpage"
+            element={<Protected element={<MainPage />} />}
+          ></Route>
+          <Route
+            path="/category"
+            element={<Protected element={<CategoryPage />} />}
+          ></Route>
           <Route
             path="/subcategory/:parentId"
-            element={<CategoryList />}
+            element={<Protected element={<CategoryList />} />}
           ></Route>
-          <Route path="/catalog/:productId" element={<CatalogPage />}></Route>
-          <Route path="/catalog2/:productId" element={<CatalogPage2 />}></Route>
+          <Route
+            path="/catalog/:productId"
+            element={<Protected element={<CatalogPage />} />}
+          ></Route>
+          <Route
+            path="/catalog2/:productId"
+            element={<Protected element={<CatalogPage2 />} />}
+          ></Route>
           <Route
             path="/productdetails/:id"
-            element={<ProductDetails />}
+            element={<Protected element={<ProductDetails />} />}
           ></Route>
-          <Route path="/review/:id" element={<Review />}></Route>
-          <Route path="/favourite" element={<FavouritePageList />}></Route>
-          <Route path="/favouritegrid" element={<FavouriteGrid />}></Route>
-          <Route path="/cart" element={<CartPage />}></Route>
-          <Route path="/profile" element={<MyProfile />}></Route>
-          <Route path="/myorder" element={<MyOrder />}></Route>
-          <Route path="/orderdetails/:id" element={<OrderDetail />}></Route>
-          <Route path="/settings" element={<Setting />}></Route>
-          <Route path="/forgotpassword" element={<Forgotpassword />}></Route>
+          <Route
+            path="/review/:id"
+            element={<Protected element={<Review />} />}
+          ></Route>
+          <Route
+            path="/favourite"
+            element={<Protected element={<FavouritePageList />} />}
+          ></Route>
+          <Route
+            path="/favouritegrid"
+            element={<Protected element={<FavouriteGrid />} />}
+          ></Route>
+          <Route
+            path="/cart"
+            element={
+              <Protected
+                element={<CartPage setTotalAmount={handleSetTotalAmount} />}
+              />
+            }
+          ></Route>
+          <Route
+            path="/profile"
+            element={<Protected element={<MyProfile />} />}
+          ></Route>
+          <Route
+            path="/myorder"
+            element={<Protected element={<MyOrder />} />}
+          ></Route>
+          <Route
+            path="/orderdetails/:id"
+            element={<Protected element={<OrderDetail />} />}
+          ></Route>
+          <Route
+            path="/settings"
+            element={<Protected element={<Setting />} />}
+          ></Route>
+          <Route
+            path="/forgotpassword"
+            element={<Protected element={<Forgotpassword />} />}
+          ></Route>
+          <Route
+            path="/checkout"
+            element={
+              <Protected
+                element={
+                  <Checkout
+                    selectedAddress={selectedAddress}
+                    totalAmount={totalAmount}
+                  />
+                }
+              />
+            }
+          ></Route>
+
+          <Route
+            path="/shippingaddress"
+            element={
+              <Protected
+                element={
+                  <ShippingAddress onSelectAddress={handleSelectAddress} />
+                }
+              />
+            }
+          ></Route>
+          <Route
+            path="/success"
+            element={<Protected element={<Success />} />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </div>

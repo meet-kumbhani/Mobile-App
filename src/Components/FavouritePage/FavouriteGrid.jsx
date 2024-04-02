@@ -25,12 +25,14 @@ import Favgrid from "./Favgrid";
 const FavouriteGrid = () => {
   const [value, setValue] = useState([200, 370]);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSorting, setSelectedSorting] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const favoritedata = useSelector((state) => state.data.favouriteData);
+  console.log(favoritedata, "-----");
   const cartdata = useSelector((i) => i.data.cartData);
 
   useEffect(() => {
@@ -41,21 +43,6 @@ const FavouriteGrid = () => {
   useEffect(() => {
     setFilteredData(favoritedata);
   }, [favoritedata]);
-
-  const addToCartHandler = (product) => {
-    dispatch(addToCart(product));
-  };
-
-  const deleteProduct = (itemId) => {
-    axios
-      .delete(`${favouriteURL}/${itemId}`)
-      .then(() => {
-        dispatch(removeFromFavourite(itemId));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   function valuetext(value) {
     return `${value}°C`;
@@ -95,6 +82,10 @@ const FavouriteGrid = () => {
     setSelectedColor(color === selectedColor ? null : color);
   };
 
+  const handleBrandSelection = (brand) => {
+    setSelectedBrand(brand === selectedBrand ? null : brand);
+  };
+
   const applyFilter = () => {
     let filteredProducts = favoritedata.filter(
       (product) => product.price >= value[0] && product.price <= value[1]
@@ -102,13 +93,13 @@ const FavouriteGrid = () => {
 
     if (selectedSize) {
       filteredProducts = filteredProducts.filter((product) =>
-        product.size.includes(selectedSize)
+        product?.size?.includes(selectedSize)
       );
     }
 
     if (selectedColor) {
       filteredProducts = filteredProducts.filter((product) =>
-        product.color.includes(selectedColor)
+        product?.color?.includes(selectedColor)
       );
     }
 
@@ -120,7 +111,7 @@ const FavouriteGrid = () => {
       setFilteredData(favoritedata);
     } else {
       const filteredProducts = favoritedata.filter((product) =>
-        product.brand.toLowerCase().includes(searchQuery.toLowerCase())
+        product?.brand?.toLowerCase()?.includes(searchQuery.toLowerCase())
       );
       setFilteredData(filteredProducts);
     }
@@ -136,9 +127,9 @@ const FavouriteGrid = () => {
         <div className="empty-cart container">
           <div className="text-center">
             <img
-              src="https://rukminim2.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRksfFMIvnfhxW_Dm6Q7ybZ7Y5k_Uywgh8RJA&usqp=CAU"
               alt="No items"
-              className="w-100"
+              className="w-100 mb-4"
             />
             <h2>Empty Favourite Page</h2>
           </div>
@@ -290,7 +281,7 @@ const FavouriteGrid = () => {
 
             <p className="fw-bold gray-title p-3 m-0">Sizes</p>
 
-            <div className="size-button-container p-3">
+            {/* <div className="size-button-container p-3">
               <button
                 className={`XS size-button ${
                   selectedSize === "XS" ? "selected" : ""
@@ -331,22 +322,26 @@ const FavouriteGrid = () => {
               >
                 XL
               </button>
-            </div>
+            </div> */}
 
             <div className="brands">
-              <p className="fw-bold gray-title p-3 nav-link">Brand</p>
-
+              <p className="fw-bold gray-title px-3 nav-link">Brand</p>
               <ul>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
+                {[
+                  ...new Set(favoritedata?.slice(1)?.map((item) => item.brand)),
+                ]?.map((brand) => (
+                  <li
+                    className="d-flex justify-content-between pt-3 pb-2"
+                    key={brand}
+                  >
+                    <label>{brand}</label>
+                    <input
+                      type="checkbox"
+                      onChange={() => handleBrandSelection(brand)}
+                      checked={selectedBrand?.includes(brand)}
+                    />
+                  </li>
+                ))}
               </ul>
             </div>
 

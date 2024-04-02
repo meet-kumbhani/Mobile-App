@@ -25,6 +25,10 @@
   font-size: 20px;
 }
 
+.productdetails-part .related-icon {
+  margin-top: 34%;
+}
+
 .productdetails-part .price {
   font-size: 20px;
   font-weight: 500;

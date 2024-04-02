@@ -62,7 +62,7 @@ const Items = (props) => {
   return (
     <div>
       <Link to={`/productdetails/${props.id}`} className="nav-link">
-        <div className="product mt-4">
+        <div className="product">
           <div className="row mb-4" style={{ position: "relative" }}>
             <div className="col-3">
               <img
@@ -87,11 +87,21 @@ const Items = (props) => {
               </div>
             </div>
             <Fab
+              style={{
+                position: "absolute",
+                bottom: "-20px",
+                right: "14px",
+                zIndex: "1",
+                color: "orange",
+                backgroundColor: "white",
+                height: "45px",
+                width: "45px",
+              }}
               aria-label="like"
               className="favoutite-icon"
               data-bs-toggle="offcanvas"
               data-bs-target={`#size_${props.id}`}
-              aria-controls={`offcanvasBottom_${props.id}`}
+              aria-controls="offcanvasBottom"
               onClick={(event) => event.preventDefault()}
             >
               <FavoriteBorderOutlinedIcon />
@@ -166,7 +176,7 @@ const Items = (props) => {
               ))}
           </div>
         </div>
-        <div className="pb-3">
+        <div className="pb-3 container">
           {addfavourite ? (
             <Link
               to="/favourite"
@@ -176,7 +186,7 @@ const Items = (props) => {
             </Link>
           ) : (
             <button
-              className="border-0 rounded-pill w-100 p-3 btn"
+              className="border-0 rounded-pill w-100 p-3 btn addtocart-btn"
               style={{
                 backgroundColor: "rgba(255, 127, 0, 1)",
                 color: "white",
