@@ -324,6 +324,27 @@ const FavouriteGrid = () => {
               </button>
             </div> */}
 
+            {favoritedata &&
+              [...new Set(favoritedata.map((sizes) => sizes.size))].map(
+                (size, index) => (
+                  <div className="size-button-container">
+                    <button
+                      className="size-button"
+                      key={index}
+                      style={{
+                        backgroundColor: selectedSize?.includes(size)
+                          ? "#FF7F00"
+                          : "white",
+                        color: selectedSize?.includes(size) ? "white" : "black",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      {size}
+                    </button>
+                  </div>
+                )
+              )}
+
             <div className="brands">
               <p className="fw-bold gray-title px-3 nav-link">Brand</p>
               <ul>

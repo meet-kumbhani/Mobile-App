@@ -69,3 +69,7 @@
   background-color: #f9f9f9;
   padding-bottom: 15%;
 }
+
+.size-button {
+  border: 2px solid black;
+}
