@@ -27,12 +27,12 @@ const CartPage = ({ setTotalAmount }) => {
     dispatch(cartData());
   }, [dispatch]);
 
-  const handleIncreaseQuantity = (itemId, currentQuantity) => {
+  const increaseQuantity = (itemId, currentQuantity) => {
     const updatedQuantity = currentQuantity + 1;
     dispatch(updateCartItemQuantity({ itemId, quantity: updatedQuantity }));
   };
 
-  const handleDecreaseQuantity = (itemId, currentQuantity) => {
+  const decreseQuantity = (itemId, currentQuantity) => {
     if (currentQuantity > 1) {
       const updatedQuantity = currentQuantity - 1;
       dispatch(updateCartItemQuantity({ itemId, quantity: updatedQuantity }));
@@ -107,7 +107,7 @@ const CartPage = ({ setTotalAmount }) => {
     }
   };
 
-  const handlePromoCodeChange = (event) => {
+  const PromoCodeChange = (event) => {
     setPromoCode(event.target.value);
   };
 
@@ -152,7 +152,7 @@ const CartPage = ({ setTotalAmount }) => {
                         </button>
                         <hr />
                         <button
-                          className="btn btn-outline-danger rounded-pill"
+                          className="dropdown-item text-center"
                           onClick={() => deleteProduct(cartitems.id)}
                         >
                           Remove item
@@ -172,10 +172,7 @@ const CartPage = ({ setTotalAmount }) => {
                         src="../minus.svg"
                         alt="minus not found"
                         onClick={() =>
-                          handleDecreaseQuantity(
-                            cartitems.id,
-                            cartitems.quantity
-                          )
+                          decreseQuantity(cartitems.id, cartitems.quantity)
                         }
                       />
                       <p> {cartitems.quantity}</p>
@@ -183,10 +180,7 @@ const CartPage = ({ setTotalAmount }) => {
                         src="../plus.svg"
                         alt="plus not found"
                         onClick={() =>
-                          handleIncreaseQuantity(
-                            cartitems.id,
-                            cartitems.quantity
-                          )
+                          increaseQuantity(cartitems.id, cartitems.quantity)
                         }
                       />
                       <h1>{cartitems?.added}</h1>
@@ -206,7 +200,7 @@ const CartPage = ({ setTotalAmount }) => {
               className="promocode-field mb-4"
               placeholder="Enter your promo code"
               value={promoCode}
-              onChange={handlePromoCodeChange}
+              onChange={PromoCodeChange}
             />
             <ArrowCircleRightIcon
               className="right-arrow"
@@ -214,14 +208,15 @@ const CartPage = ({ setTotalAmount }) => {
             />
           </div>
 
-          <div className="d-grid justify-content-end">
-            <h4>Total amount: {discountedTotal || allitemtotal}</h4>
-            {discountedTotal > 0 ? (
-              <p className="discount">(5% discount applied)</p>
-            ) : (
-              ""
-            )}
+          <div className="d-flex justify-content-between">
+            <h4 className="color">Total amount:</h4>
+            <h4 className="fw-bold">{discountedTotal || allitemtotal}$</h4>
           </div>
+          {discountedTotal > 0 ? (
+            <p className="discount text-end">(5% discount applied)</p>
+          ) : (
+            ""
+          )}
 
           <Link to="/shippingaddress">
             <button className="checkout-btn">CHECK OUT</button>

@@ -16,7 +16,7 @@ const Login = () => {
     Password: "",
   });
 
-  const handleChange = (e) => {
+  const ChangeValue = (e) => {
     const { name, value } = e.target;
     setLoginData((prevState) => ({
       ...prevState,
@@ -24,7 +24,7 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const Submit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.get("http://localhost:3001/userInfo");
@@ -36,8 +36,11 @@ const Login = () => {
       );
 
       if (foundUser) {
-        const { id, Name } = foundUser;
-        localStorage.setItem("loggedInUser", JSON.stringify({ Name, id }));
+        const { id, Name, Email } = foundUser;
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify({ Name, id, Email })
+        );
         const snackbar = enqueueSnackbar("Login Successful", {
           variant: "success",
         });
@@ -72,7 +75,7 @@ const Login = () => {
 
         <section className="form-part">
           <div className="mt-5">
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={Submit}>
               <Form.Group className="mb-3">
                 <TextField
                   className="input-field bg-white w-100"
@@ -81,7 +84,7 @@ const Login = () => {
                   variant="outlined"
                   name="Email"
                   value={loginData.Email}
-                  onChange={handleChange}
+                  onChange={ChangeValue}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -92,7 +95,7 @@ const Login = () => {
                   type="password"
                   name="Password"
                   value={loginData.Password}
-                  onChange={handleChange}
+                  onChange={ChangeValue}
                 />
               </Form.Group>
             </Form>
@@ -117,7 +120,7 @@ const Login = () => {
 
         <button
           className="w-100 sign-up-btn p-2 rounded-pill border-0 mt-4"
-          onClick={handleSubmit}
+          onClick={Submit}
         >
           LOGIN
         </button>

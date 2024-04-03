@@ -122,6 +122,11 @@
   height: 50px;
   width: 65px;
   background-color: white;
+  cursor: pointer;
+}
+
+.checkout-page .payment-icon:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .checkout-page .color {

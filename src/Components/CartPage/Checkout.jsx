@@ -10,18 +10,15 @@ const Checkout = ({ selectedAddress, totalAmount }) => {
   const navigate = useNavigate();
 
   const user = JSON.parse(loggedInUser);
-  console.log("User:", user);
-
   const id = user?.id;
-  console.log("ID: --->> ", id);
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
 
-  const handlePaymentMethodSelection = (method) => {
+  const paymentMethodSelection = (method) => {
     setSelectedPaymentMethod(method);
   };
 
-  const handleSubmitOrder = async () => {
+  const submitOrder = async () => {
     if (!selectedPaymentMethod) {
       return;
     }
@@ -34,7 +31,7 @@ const Checkout = ({ selectedAddress, totalAmount }) => {
     try {
       const response = await axios.patch(`${userInfoURL}/${id}`, orderData);
     } catch (error) {
-      console.error("Error submitting order:", error.message);
+      console.error("Error", error.message);
     }
   };
 
@@ -80,7 +77,7 @@ const Checkout = ({ selectedAddress, totalAmount }) => {
                 className={`payment-icon ${
                   selectedPaymentMethod === "mastercard" && "selected"
                 }`}
-                onClick={() => handlePaymentMethodSelection("mastercard")}
+                onClick={() => paymentMethodSelection("mastercard")}
               />
               <img
                 src="../images/phonepe.svg"
@@ -88,7 +85,7 @@ const Checkout = ({ selectedAddress, totalAmount }) => {
                 className={`payment-icon ${
                   selectedPaymentMethod === "phonepe" && "selected"
                 }`}
-                onClick={() => handlePaymentMethodSelection("phonepe")}
+                onClick={() => paymentMethodSelection("phonepe")}
               />
               <img
                 src="../images/googlepay.svg"
@@ -96,7 +93,7 @@ const Checkout = ({ selectedAddress, totalAmount }) => {
                 className={`payment-icon ${
                   selectedPaymentMethod === "googlepay" && "selected"
                 }`}
-                onClick={() => handlePaymentMethodSelection("googlepay")}
+                onClick={() => paymentMethodSelection("googlepay")}
               />
               <img
                 src="../images/paytm.svg"
@@ -104,7 +101,7 @@ const Checkout = ({ selectedAddress, totalAmount }) => {
                 className={`payment-icon ${
                   selectedPaymentMethod === "paytm" && "selected"
                 }`}
-                onClick={() => handlePaymentMethodSelection("paytm")}
+                onClick={() => paymentMethodSelection("paytm")}
               />
             </div>
 
@@ -124,7 +121,7 @@ const Checkout = ({ selectedAddress, totalAmount }) => {
             </div>
             <div className="pb-3 ">
               <Link to="/success">
-                <button className="checkout-btn" onClick={handleSubmitOrder}>
+                <button className="checkout-btn" onClick={submitOrder}>
                   SUBMIT ORDER
                 </button>
               </Link>

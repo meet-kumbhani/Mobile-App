@@ -3,12 +3,11 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ShareIcon from "@mui/icons-material/Share";
 import Rating from "@mui/material/Rating";
 import "../ProductDetail/ProductDetail.css";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { cartURL, mainURL } from "../../config/url";
+import { mainURL } from "../../config/url";
 import Fab from "@mui/material/Fab";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useDispatch, useSelector } from "react-redux";
@@ -85,7 +84,7 @@ const ProductDetails = () => {
     setAddfavourite(isProductInFavourite);
   }, [cartItems, details, favoritedata, addcart, selectedColor, selectedSizes]);
 
-  const handleSizeSelection = (size) => {
+  const SizeSelection = (size) => {
     if (selectedSizes.includes(size)) {
       setSelectedSizes([]);
     } else {
@@ -93,7 +92,7 @@ const ProductDetails = () => {
     }
   };
 
-  const handleColorSelection = (color) => {
+  const ColorSelection = (color) => {
     if (selectedColor.includes(color)) {
       setSelectedColor([]);
     } else {
@@ -151,7 +150,8 @@ const ProductDetails = () => {
           ) : (
             "Loading..."
           )}
-          <ShareIcon />
+          {/* <ShareIcon /> */}
+          <p></p>
         </div>
       </section>
 
@@ -203,13 +203,13 @@ const ProductDetails = () => {
 
                   <div className="button-container pb-3 mt-4">
                     {details &&
-                      details.size.map((size, index) => (
+                      details?.size?.map((size, index) => (
                         <button
                           key={index}
                           className={`size-button w-100 ${
                             selectedSizes.includes(size) ? "selected" : ""
                           }`}
-                          onClick={() => handleSizeSelection(size)}
+                          onClick={() => SizeSelection(size)}
                           style={{
                             backgroundColor: selectedSizes.includes(size)
                               ? "#FF7F00"
@@ -237,7 +237,7 @@ const ProductDetails = () => {
                           className={`color-button ${
                             selectedColor.includes(color) ? "selected" : ""
                           }`}
-                          onClick={() => handleColorSelection(color)}
+                          onClick={() => ColorSelection(color)}
                           style={{
                             width: "30px",
                             height: "30px",
@@ -333,7 +333,7 @@ const ProductDetails = () => {
                             className={`color-button ${
                               selectedColor.includes(color) ? "selected" : ""
                             }`}
-                            onClick={() => handleColorSelection(color)}
+                            onClick={() => ColorSelection(color)}
                             style={{
                               width: "30px",
                               height: "30px",
@@ -350,13 +350,13 @@ const ProductDetails = () => {
 
                     <div className="button-container pb-3 mt-4">
                       {details &&
-                        details.size.map((size, index) => (
+                        details?.size?.map((size, index) => (
                           <button
                             key={index}
                             className={`size-button w-100 ${
                               selectedSizes.includes(size) ? "selected" : ""
                             }`}
-                            onClick={() => handleSizeSelection(size)}
+                            onClick={() => SizeSelection(size)}
                             style={{
                               backgroundColor: selectedSizes.includes(size)
                                 ? "#FF7F00"
@@ -431,7 +431,7 @@ const ProductDetails = () => {
 
         <section className="pt-3 product-part d-flex pe-2 ps-2">
           {related
-            ? related.slice(1).map((item) => (
+            ? related.slice(1)?.map((item) => (
                 <div key={item.id}>
                   <Link to={`/productdetails/${item.id}`} className="nav-link">
                     <div className="pb-4 mx-2">

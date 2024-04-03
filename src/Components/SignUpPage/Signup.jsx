@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { saveUserInfo } from "../../toolkit/slice";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Form from "react-bootstrap/Form";
 import "../SignUpPage/Signup.css";
 import TextField from "@mui/material/TextField";
@@ -19,7 +18,7 @@ const Signup = () => {
     Password: "",
   });
 
-  const handleChange = (e) => {
+  const ChangeValue = (e) => {
     const { name, value } = e.target;
     setUserData((prevState) => ({
       ...prevState,
@@ -49,7 +48,6 @@ const Signup = () => {
     <section className="container signup-page">
       <section>
         <div className="pt-3">
-          <ArrowBackIosNewIcon />
           <h1 className="mt-4 fw-bold">Sign up</h1>
         </div>
       </section>
@@ -65,7 +63,7 @@ const Signup = () => {
                 type="text"
                 name="Name"
                 value={userData.Name}
-                onChange={handleChange}
+                onChange={ChangeValue}
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -76,7 +74,7 @@ const Signup = () => {
                 type="email"
                 name="Email"
                 value={userData.Email}
-                onChange={handleChange}
+                onChange={ChangeValue}
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -87,7 +85,7 @@ const Signup = () => {
                 type="password"
                 name="Password"
                 value={userData.Password}
-                onChange={handleChange}
+                onChange={ChangeValue}
               />
             </Form.Group>
           </Form>

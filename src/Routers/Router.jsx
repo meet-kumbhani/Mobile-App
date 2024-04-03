@@ -21,16 +21,17 @@ import Protected from "../Components/ProtectedRoute/Protected";
 import ShippingAddress from "../Components/CartPage/ShippingAddress";
 import Success from "../Components/CartPage/Success";
 import Checkout from "../Components/CartPage/Checkout";
+import Adress from "../Components/ProfilePage/Adress";
 
 const Router = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [totalAmount, setTotalAmount] = useState(0);
 
-  const handleSetTotalAmount = (amount) => {
+  const Totalamount = (amount) => {
     setTotalAmount(amount);
   };
 
-  const handleSelectAddress = (address) => {
+  const Selectedadress = (address) => {
     setSelectedAddress(address);
   };
   return (
@@ -79,14 +80,16 @@ const Router = () => {
           <Route
             path="/cart"
             element={
-              <Protected
-                element={<CartPage setTotalAmount={handleSetTotalAmount} />}
-              />
+              <Protected element={<CartPage setTotalAmount={Totalamount} />} />
             }
           ></Route>
           <Route
             path="/profile"
             element={<Protected element={<MyProfile />} />}
+          ></Route>
+          <Route
+            path="/adress/:id"
+            element={<Protected element={<Adress />} />}
           ></Route>
           <Route
             path="/myorder"
@@ -100,10 +103,7 @@ const Router = () => {
             path="/settings"
             element={<Protected element={<Setting />} />}
           ></Route>
-          <Route
-            path="/forgotpassword"
-            element={<Protected element={<Forgotpassword />} />}
-          ></Route>
+          <Route path="/forgotpassword" element={<Forgotpassword />}></Route>
           <Route
             path="/checkout"
             element={
@@ -122,9 +122,7 @@ const Router = () => {
             path="/shippingaddress"
             element={
               <Protected
-                element={
-                  <ShippingAddress onSelectAddress={handleSelectAddress} />
-                }
+                element={<ShippingAddress onSelectAddress={Selectedadress} />}
               />
             }
           ></Route>

@@ -46,13 +46,13 @@ const Favgrid = (props) => {
   };
 
   const alredypresent = () => {
-    const snackbar = enqueueSnackbar("This Product is Alredy in cartpage", {
+    const snackbar = enqueueSnackbar("This Product is Alredy in cart", {
       variant: "success",
     });
     setTimeout(() => closeSnackbar(snackbar), 2000);
   };
   return (
-    <div className="col-6 pb-4" key={props.id}>
+    <div className=" pb-4" key={props.id}>
       <div style={{ position: "relative" }}>
         <img
           src={props.image}
@@ -70,7 +70,7 @@ const Favgrid = (props) => {
             style={{
               position: "absolute",
               bottom: "-20px",
-              right: "13px",
+              right: "1px",
               zIndex: "1",
               color: "orange",
               backgroundColor: "white",
@@ -91,7 +91,7 @@ const Favgrid = (props) => {
               style={{
                 position: "absolute",
                 bottom: "-20px",
-                right: "13px",
+                right: "1px",
                 zIndex: "1",
                 color: "orange",
                 backgroundColor: "white",

@@ -3,30 +3,28 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchIcon from "@mui/icons-material/Search";
-import Form from "react-bootstrap/Form";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
-import Rating from "@mui/material/Rating";
-import Fab from "@mui/material/Fab";
 import "../CatalogPage/CatalogPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Link } from "react-router-dom";
 import Footer from "../Footerpart/Footer";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Slider from "@mui/material/Slider";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { addToFavourites, favouriteData } from "../../toolkit/slice";
+import { favouriteData } from "../../toolkit/slice";
 import { useDispatch } from "react-redux";
 import Itemsgrid from "./Itemsgrid";
+import { mainURL } from "../../config/url";
 
 const CatelogPage2 = () => {
   const [product, setProduct] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
   const [filterValue, setFilterValue] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const { productId } = useParams();
-  const [value, setValue] = useState([200, 370]);
+  const [value, setValue] = useState([0, 1000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
@@ -40,7 +38,7 @@ const CatelogPage2 = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/products`)
+      .get(mainURL)
       .then((response) => {
         const data = response.data.filter((res) => {
           return res.productId == productId;
@@ -154,14 +152,34 @@ const CatelogPage2 = () => {
     setFilterValue("");
   };
 
+  const filteredProducts = product?.filter((item) =>
+    item?.brand?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSearchClick = () => {
+    setIsSearchOpen(true);
+  };
+
   return (
     <section className="container catalog-page">
       {/* Top Part */}
 
-      <section className="top-part">
+      <section className="top-part fixed-top container-fluid pb-2">
         <div className="pt-3 d-flex justify-content-between">
           <ArrowBackIosNewIcon onClick={() => navigate(-2)} />
-          <SearchIcon className="fs-1" />
+          <div className="search-bar">
+            {isSearchOpen ? (
+              <input
+                className="border-0"
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            ) : (
+              <SearchIcon onClick={handleSearchClick} />
+            )}
+          </div>
         </div>
 
         {product.map((item) => (
@@ -193,8 +211,8 @@ const CatelogPage2 = () => {
 
       {/* Product List */}
 
-      <section className="row pt-4 product-part">
-        {product
+      <section className="row pt-5 product-grid">
+        {filteredProducts
           .filter((item) => item.image)
           .map((item) => (
             <Itemsgrid
@@ -387,8 +405,7 @@ const CatelogPage2 = () => {
             <p className="ps-4 py-3 m-0" onClick={handleSortByPopularity}>
               Popular
             </p>
-            <p className="ps-4 py-3 m-0">Newest</p>
-            <p className="ps-4 py-3 m-0">Customer review</p>
+
             <p
               className="ps-4 py-3 m-0"
               onClick={() => handleSort("lowest to high")}

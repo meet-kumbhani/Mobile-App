@@ -5,17 +5,15 @@ import TextField from "@mui/material/TextField";
 import "../CartPage/CartPage.css";
 import axios from "axios";
 import { userInfoURL } from "../../config/url";
+import { useDispatch } from "react-redux";
+import { saveUserInfo } from "../../toolkit/slice";
 
 const ShippingAddress = ({ onSelectAddress }) => {
+  const dispatch = useDispatch();
   const loggedInUser = localStorage.getItem("loggedInUser");
-  console.log(loggedInUser, " <<----");
   const navigate = useNavigate();
-
   const user = JSON.parse(loggedInUser);
-  console.log("User:", user);
-
   const id = user?.id;
-  console.log("ID: --->> ", id);
 
   const [shippingAddressData, setShippingAddressData] = useState({
     shippingaddress: [],
@@ -45,13 +43,13 @@ const ShippingAddress = ({ onSelectAddress }) => {
 
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(null);
 
-  const handleEditAddress = (index) => {
+  const EditAddress = (index) => {
     setSelectedAddressIndex(index);
     const selectedAddress = shippingAddressData.shippingaddress[index];
     setNewAddress(selectedAddress);
   };
 
-  const handleSaveAddress = () => {
+  const SaveAddress = () => {
     let updatedShippingAddressData;
     const updatedAddress = { ...newAddress };
 
@@ -81,6 +79,7 @@ const ShippingAddress = ({ onSelectAddress }) => {
       .patch(`${userInfoURL}/${id}`, updatedShippingAddressData)
       .then((response) => {
         console.log("Address saved successfully:", response.data);
+        dispatch(saveUserInfo());
         setShippingAddressData(updatedShippingAddressData);
         setNewAddress({
           address: "",
@@ -124,17 +123,14 @@ const ShippingAddress = ({ onSelectAddress }) => {
                     data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasBottom"
                     aria-controls="offcanvasBottom"
-                    onClick={() => handleEditAddress(index)}
+                    onClick={() => EditAddress(index)}
                   >
                     Edit
                   </span>
                 </div>
                 <div className="col-8">
                   <span>
-                    {`${address.address} ${address.city}, ${address.state}, ${address.zipCode}, ${address.country}`.replace(
-                      /,/g,
-                      ""
-                    )}
+                    {`${address.address} ${address.city}, ${address.state}, ${address.zipCode}, ${address.country}`}
                   </span>
                 </div>
 
@@ -269,7 +265,7 @@ const ShippingAddress = ({ onSelectAddress }) => {
                   className="saveaddress-btn"
                   data-bs-dismiss="offcanvas"
                   aria-label="Close"
-                  onClick={handleSaveAddress}
+                  onClick={SaveAddress}
                 >
                   SAVE ADDRESS
                 </button>

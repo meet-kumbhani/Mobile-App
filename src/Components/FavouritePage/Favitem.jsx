@@ -46,7 +46,7 @@ const Favitem = (props) => {
   };
 
   const alredypresent = () => {
-    const snackbar = enqueueSnackbar("This Product is Alredy in cartpage", {
+    const snackbar = enqueueSnackbar("This Product is Alredy in cart", {
       variant: "success",
     });
     setTimeout(() => closeSnackbar(snackbar), 2000);

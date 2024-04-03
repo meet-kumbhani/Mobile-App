@@ -19,7 +19,7 @@ const Forgotpassword = () => {
     return Math.floor(100000 + Math.random() * 900000);
   };
 
-  const handleSubmit = async (e) => {
+  const Submit = async (e) => {
     e.preventDefault();
     const serviceId = "service_kosk3ep";
     const templateId = "template_4hdz9rf";
@@ -64,7 +64,7 @@ const Forgotpassword = () => {
                 Please, enter your email address. You will receive a link to
                 create a new password via email.
               </h6>
-              <form className="for" onSubmit={handleSubmit}>
+              <form className="for" onSubmit={Submit}>
                 <div className="form_group">
                   <input
                     type="email"

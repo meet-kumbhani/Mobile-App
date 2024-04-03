@@ -24,11 +24,11 @@ const CategoryList = () => {
         setcategory(data);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error", error);
       });
   }, []);
 
-  const handleSearchChange = (event) => {
+  const Search = (event) => {
     setSearchQuery(event.target.value);
   };
 
@@ -54,7 +54,7 @@ const CategoryList = () => {
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
-                onChange={handleSearchChange}
+                onChange={Search}
               />
             )}
           </div>

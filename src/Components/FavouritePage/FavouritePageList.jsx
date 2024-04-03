@@ -7,14 +7,8 @@ import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import "../FavouritePage/FavouritePage.css";
 import Footer from "../Footerpart/Footer";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Slider from "@mui/material/Slider";
-import {
-  addToCart,
-  cartData,
-  favouriteData,
-  removeFromFavourite,
-} from "../../toolkit/slice";
+import { cartData, favouriteData } from "../../toolkit/slice";
 import { useDispatch, useSelector } from "react-redux";
 import Favitem from "./Favitem";
 
@@ -23,6 +17,7 @@ const FavouritePageList = () => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSorting, setSelectedSorting] = useState(null);
+  const [selectedBrand, setSelectedBrand] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
@@ -42,7 +37,7 @@ const FavouritePageList = () => {
     return `${value}°C`;
   }
 
-  const handleChange = (event, newValue) => {
+  const ChangeValue = (event, newValue) => {
     setValue(newValue);
   };
 
@@ -68,11 +63,15 @@ const FavouritePageList = () => {
     setSelectedSorting("Popular");
   };
 
-  const handleSizeSelection = (size) => {
+  const SizeSelection = (size) => {
     setSelectedSize(size === selectedSize ? null : size);
   };
 
-  const handleColorSelection = (color) => {
+  const BrandSelection = (brand) => {
+    setSelectedBrand(brand === selectedBrand ? null : brand);
+  };
+
+  const ColorSelection = (color) => {
     setSelectedColor(color === selectedColor ? null : color);
   };
 
@@ -107,11 +106,11 @@ const FavouritePageList = () => {
     }
   };
 
-  const handleSearch = () => {
+  const Search = () => {
     filterByBrand();
   };
 
-  if (filteredData?.length == 0) {
+  if (favoritedata?.length === 0) {
     return (
       <>
         <div className="empty-cart container">
@@ -127,14 +126,26 @@ const FavouritePageList = () => {
         <Footer />
       </>
     );
+  } else if (filteredData?.length === 0) {
+    return (
+      <>
+        <div className="empty-cart container">
+          <div className="text-center">
+            <h2>No items found matching the applied filters</h2>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
   }
 
   return (
-    <section className="container catalog-page">
+    <section className="container favourite-page">
       {/* Top Part */}
 
-      <section className="top-part">
-        <div className="pt-3 d-flex justify-content-end align-items-center">
+      <section className="top-part fixed-top container-fluid pb-2">
+        <div className="pt-1 d-flex justify-content-between align-items-center">
+          <h3 className="mt-4 fw-bold">Favourites</h3>
           <Form.Control
             type="text"
             className="w-50"
@@ -142,9 +153,8 @@ const FavouritePageList = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <SearchIcon className="fs-1" onClick={handleSearch} />
+          <SearchIcon className="fs-1" onClick={Search} />
         </div>
-        <h1 className="mt-4 fw-bold">Favourites</h1>
 
         <div className="d-flex mt-3 filter-part align-items-center">
           <FilterListIcon
@@ -153,9 +163,9 @@ const FavouritePageList = () => {
             data-bs-target="#AllFilters"
             aria-controls="offcanvasBottom"
           />
-          <p className="w-25 filter m-0">Filters</p>
+          <p className="m-0">Filters</p>
           <SwapVertIcon
-            className="swap-icon2"
+            className="swap-icon2 ms-auto"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasBottom"
             aria-controls="offcanvasBottom"
@@ -169,7 +179,7 @@ const FavouritePageList = () => {
 
       {/* Favourites Items */}
 
-      <section>
+      <section className="favourite-items">
         {filteredData?.map((item, index) => (
           <>
             <Favitem
@@ -223,7 +233,7 @@ const FavouritePageList = () => {
               <Slider
                 getAriaLabel={() => "Temperature range"}
                 value={value}
-                onChange={handleChange}
+                onChange={ChangeValue}
                 max={500}
                 getAriaValueText={valuetext}
               />
@@ -236,96 +246,81 @@ const FavouritePageList = () => {
                 className={`yellow ${
                   selectedColor === "yellow" ? "selected" : ""
                 }`}
-                onClick={() => handleColorSelection("yellow")}
+                onClick={() => ColorSelection("yellow")}
               ></button>
               <button
                 className={`green ${
                   selectedColor === "green" ? "selected" : ""
                 }`}
-                onClick={() => handleColorSelection("green")}
+                onClick={() => ColorSelection("green")}
               ></button>
               <button
                 className={`white ${
                   selectedColor === "white" ? "selected" : ""
                 }`}
-                onClick={() => handleColorSelection("white")}
+                onClick={() => ColorSelection("white")}
               ></button>
               <button
                 className={`red ${selectedColor === "red" ? "selected" : ""}`}
-                onClick={() => handleColorSelection("red")}
+                onClick={() => ColorSelection("red")}
               ></button>
               <button
                 className={`blue ${selectedColor === "blue" ? "selected" : ""}`}
-                onClick={() => handleColorSelection("blue")}
+                onClick={() => ColorSelection("blue")}
               ></button>
               <button
                 className={`black ${
                   selectedColor === "black" ? "selected" : ""
                 }`}
-                onClick={() => handleColorSelection("black")}
+                onClick={() => ColorSelection("black")}
               ></button>
             </div>
 
             <p className="fw-bold gray-title p-3 m-0">Sizes</p>
 
-            <div className="size-button-container p-3">
-              <button
-                className={`XS size-button ${
-                  selectedSize === "XS" ? "selected" : ""
-                }`}
-                onClick={() => handleSizeSelection("XS")}
-              >
-                XS
-              </button>
-              <button
-                className={`S size-button ${
-                  selectedSize === "S" ? "selected" : ""
-                }`}
-                onClick={() => handleSizeSelection("S")}
-              >
-                S
-              </button>
-              <button
-                className={`M size-button ${
-                  selectedSize === "M" ? "selected" : ""
-                }`}
-                onClick={() => handleSizeSelection("M")}
-              >
-                M
-              </button>
-              <button
-                className={`L size-button ${
-                  selectedSize === "L" ? "selected" : ""
-                }`}
-                onClick={() => handleSizeSelection("L")}
-              >
-                L
-              </button>
-              <button
-                className={`XL size-button ${
-                  selectedSize === "XL" ? "selected" : ""
-                }`}
-                onClick={() => handleSizeSelection("XL")}
-              >
-                XL
-              </button>
+            <div className="button-container container pb-4">
+              {favoritedata &&
+                [...new Set(favoritedata?.map((sizes) => sizes.size))].map(
+                  (size, index) => (
+                    <div className="size-button-container" key={index}>
+                      <button
+                        className={
+                          selectedSize === size ? "selectedButton" : ""
+                        }
+                        onClick={() => SizeSelection(size)}
+                      >
+                        {size}
+                      </button>
+                    </div>
+                  )
+                )}
             </div>
 
             <div className="brands">
               <p className="fw-bold gray-title p-3 nav-link">Brand</p>
 
-              <ul>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-              </ul>
+              <div className="brands">
+                <p className="fw-bold gray-title px-3 nav-link">Brand</p>
+                <ul>
+                  {[
+                    ...new Set(
+                      favoritedata?.slice(1)?.map((item) => item.brand)
+                    ),
+                  ]?.map((brand) => (
+                    <li
+                      className="d-flex justify-content-between pt-3 pb-2"
+                      key={brand}
+                    >
+                      <label>{brand}</label>
+                      <input
+                        type="checkbox"
+                        onChange={() => BrandSelection(brand)}
+                        checked={selectedBrand?.includes(brand)}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             <div className="d-flex justify-content-between py-3 px-3 fixed-bottom bg-white">

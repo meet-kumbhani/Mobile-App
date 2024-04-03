@@ -26,7 +26,7 @@ const Items = (props) => {
     setAddfavourite(isProductInFavourite);
   }, [favourites, props, selectedColors, selectedSizes]);
 
-  const handleColorSelection = (color) => {
+  const ColorSelection = (color) => {
     if (selectedColors.includes(color)) {
       setSelectedColors(selectedColors.filter((c) => c !== color));
     } else {
@@ -34,7 +34,7 @@ const Items = (props) => {
     }
   };
 
-  const handleSizeSelection = (size) => {
+  const SizeSelection = (size) => {
     if (selectedSizes.includes(size)) {
       setSelectedSizes(selectedSizes.filter((s) => s !== size));
     } else {
@@ -42,7 +42,7 @@ const Items = (props) => {
     }
   };
 
-  let handleAddToFavorites = () => {
+  let AddToFavorites = () => {
     if (props && selectedSizes.length > 0 && selectedColors.length > 0) {
       dispatch(
         addToFavourites({
@@ -138,7 +138,7 @@ const Items = (props) => {
                   className={`size-button w-100 ${
                     selectedSizes.includes(size) ? "selected" : ""
                   }`}
-                  onClick={() => handleSizeSelection(size)}
+                  onClick={() => SizeSelection(size)}
                   style={{
                     backgroundColor: selectedSizes.includes(size)
                       ? "#FF7F00"
@@ -164,7 +164,7 @@ const Items = (props) => {
                   className={`color-button ${
                     selectedColors.includes(color) ? "selected" : ""
                   }`}
-                  onClick={() => handleColorSelection(color)}
+                  onClick={() => ColorSelection(color)}
                   style={{
                     width: "30px",
                     height: "30px",
@@ -194,7 +194,7 @@ const Items = (props) => {
               disabled={
                 selectedSizes.length === 0 || selectedColors.length === 0
               }
-              onClick={handleAddToFavorites}
+              onClick={AddToFavorites}
               data-bs-dismiss="offcanvas"
               aria-label="Close"
             >

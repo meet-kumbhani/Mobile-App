@@ -4,22 +4,12 @@ import Form from "react-bootstrap/Form";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
-import Rating from "@mui/material/Rating";
-import Fab from "@mui/material/Fab";
-import CloseIcon from "@mui/icons-material/Close";
 import "../FavouritePage/FavouritePage.css";
 import Footer from "../Footerpart/Footer";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Slider from "@mui/material/Slider";
-import {
-  addToCart,
-  cartData,
-  favouriteData,
-  removeFromFavourite,
-} from "../../toolkit/slice";
+import { cartData, favouriteData } from "../../toolkit/slice";
 import { useDispatch, useSelector } from "react-redux";
-import { favouriteURL } from "../../config/url";
 import Favgrid from "./Favgrid";
 
 const FavouriteGrid = () => {
@@ -32,7 +22,6 @@ const FavouriteGrid = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const favoritedata = useSelector((state) => state.data.favouriteData);
-  console.log(favoritedata, "-----");
   const cartdata = useSelector((i) => i.data.cartData);
 
   useEffect(() => {
@@ -48,7 +37,7 @@ const FavouriteGrid = () => {
     return `${value}°C`;
   }
 
-  const handleChange = (event, newValue) => {
+  const ChangeValue = (newValue) => {
     setValue(newValue);
   };
 
@@ -74,15 +63,15 @@ const FavouriteGrid = () => {
     setSelectedSorting("Popular");
   };
 
-  const handleSizeSelection = (size) => {
+  const SizeSelection = (size) => {
     setSelectedSize(size === selectedSize ? null : size);
   };
 
-  const handleColorSelection = (color) => {
+  const ColorSelection = (color) => {
     setSelectedColor(color === selectedColor ? null : color);
   };
 
-  const handleBrandSelection = (brand) => {
+  const BrandSelection = (brand) => {
     setSelectedBrand(brand === selectedBrand ? null : brand);
   };
 
@@ -117,11 +106,11 @@ const FavouriteGrid = () => {
     }
   };
 
-  const handleSearch = () => {
+  const Search = () => {
     filterByBrand();
   };
 
-  if (filteredData?.length == 0) {
+  if (favoritedata?.length === 0) {
     return (
       <>
         <div className="empty-cart container">
@@ -137,15 +126,26 @@ const FavouriteGrid = () => {
         <Footer />
       </>
     );
+  } else if (filteredData?.length === 0) {
+    return (
+      <>
+        <div className="empty-cart container">
+          <div className="text-center">
+            <h2>No items found matching the applied filters</h2>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
   }
 
   return (
     <section className="container favourite-page">
       {/* Top Part */}
 
-      <section className="top-part">
+      <section className="top-part fixed-top container-fluid pb-2">
         <div className="pt-1 d-flex justify-content-between align-items-baseline">
-          <span className="fw-bold mx-auto">Favourites</span>
+          <h3 className="fw-bold">Favourites</h3>
           <div className="pt-3 d-flex justify-content-end align-items-center">
             <Form.Control
               type="text"
@@ -154,7 +154,7 @@ const FavouriteGrid = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <SearchIcon className="fs-1" onClick={handleSearch} />
+            <SearchIcon className="fs-1" onClick={Search} />
           </div>
         </div>
         <div className="d-flex mt-3 filter-part justify-content-between">
@@ -181,9 +181,9 @@ const FavouriteGrid = () => {
 
       {/* Favourite items */}
 
-      <section className="row pt-4">
+      <section className="row favourite-items">
         {filteredData?.map((item) => (
-          <>
+          <div className="col-6" key={item.id}>
             <Favgrid
               image={item.image}
               rating={item.rating}
@@ -196,7 +196,7 @@ const FavouriteGrid = () => {
               quantity={item.quantity}
               color={item.color}
             />
-          </>
+          </div>
         ))}
       </section>
 
@@ -236,7 +236,7 @@ const FavouriteGrid = () => {
               <Slider
                 getAriaLabel={() => "Temperature range"}
                 value={value}
-                onChange={handleChange}
+                onChange={ChangeValue}
                 max={500}
                 getAriaValueText={valuetext}
               />
@@ -249,101 +249,55 @@ const FavouriteGrid = () => {
                 className={`yellow ${
                   selectedColor === "yellow" ? "selected" : ""
                 }`}
-                onClick={() => handleColorSelection("yellow")}
+                onClick={() => ColorSelection("yellow")}
               ></button>
               <button
                 className={`green ${
                   selectedColor === "green" ? "selected" : ""
                 }`}
-                onClick={() => handleColorSelection("green")}
+                onClick={() => ColorSelection("green")}
               ></button>
               <button
                 className={`white ${
                   selectedColor === "white" ? "selected" : ""
                 }`}
-                onClick={() => handleColorSelection("white")}
+                onClick={() => ColorSelection("white")}
               ></button>
               <button
                 className={`red ${selectedColor === "red" ? "selected" : ""}`}
-                onClick={() => handleColorSelection("red")}
+                onClick={() => ColorSelection("red")}
               ></button>
               <button
                 className={`blue ${selectedColor === "blue" ? "selected" : ""}`}
-                onClick={() => handleColorSelection("blue")}
+                onClick={() => ColorSelection("blue")}
               ></button>
               <button
                 className={`black ${
                   selectedColor === "black" ? "selected" : ""
                 }`}
-                onClick={() => handleColorSelection("black")}
+                onClick={() => ColorSelection("black")}
               ></button>
             </div>
 
             <p className="fw-bold gray-title p-3 m-0">Sizes</p>
 
-            {/* <div className="size-button-container p-3">
-              <button
-                className={`XS size-button ${
-                  selectedSize === "XS" ? "selected" : ""
-                }`}
-                onClick={() => handleSizeSelection("XS")}
-              >
-                XS
-              </button>
-              <button
-                className={`S size-button ${
-                  selectedSize === "S" ? "selected" : ""
-                }`}
-                onClick={() => handleSizeSelection("S")}
-              >
-                S
-              </button>
-              <button
-                className={`M size-button ${
-                  selectedSize === "M" ? "selected" : ""
-                }`}
-                onClick={() => handleSizeSelection("M")}
-              >
-                M
-              </button>
-              <button
-                className={`L size-button ${
-                  selectedSize === "L" ? "selected" : ""
-                }`}
-                onClick={() => handleSizeSelection("L")}
-              >
-                L
-              </button>
-              <button
-                className={`XL size-button ${
-                  selectedSize === "XL" ? "selected" : ""
-                }`}
-                onClick={() => handleSizeSelection("XL")}
-              >
-                XL
-              </button>
-            </div> */}
-
-            {favoritedata &&
-              [...new Set(favoritedata.map((sizes) => sizes.size))].map(
-                (size, index) => (
-                  <div className="size-button-container">
-                    <button
-                      className="size-button"
-                      key={index}
-                      style={{
-                        backgroundColor: selectedSize?.includes(size)
-                          ? "#FF7F00"
-                          : "white",
-                        color: selectedSize?.includes(size) ? "white" : "black",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      {size}
-                    </button>
-                  </div>
-                )
-              )}
+            <div className="button-container container pb-4">
+              {favoritedata &&
+                [...new Set(favoritedata?.map((sizes) => sizes.size))].map(
+                  (size, index) => (
+                    <div className="size-button-container" key={index}>
+                      <button
+                        className={
+                          selectedSize === size ? "selectedButton" : ""
+                        }
+                        onClick={() => SizeSelection(size)}
+                      >
+                        {size}
+                      </button>
+                    </div>
+                  )
+                )}
+            </div>
 
             <div className="brands">
               <p className="fw-bold gray-title px-3 nav-link">Brand</p>
@@ -358,7 +312,7 @@ const FavouriteGrid = () => {
                     <label>{brand}</label>
                     <input
                       type="checkbox"
-                      onChange={() => handleBrandSelection(brand)}
+                      onChange={() => BrandSelection(brand)}
                       checked={selectedBrand?.includes(brand)}
                     />
                   </li>

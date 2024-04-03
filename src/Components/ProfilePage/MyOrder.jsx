@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import SearchIcon from "@mui/icons-material/Search";
 import "../ProfilePage/ProfilePage.css";
 import Footer from "../Footerpart/Footer";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,8 +27,6 @@ const MyOrder = () => {
       <section className="top-part">
         <div className="pt-3 pb-2 d-flex justify-content-between">
           <ArrowBackIosNewIcon onClick={() => navigate(-1)} />
-
-          <SearchIcon className="fs-1" />
         </div>
         <h1 className="fw-bold mt-3 mb-4">My Orders</h1>
       </section>

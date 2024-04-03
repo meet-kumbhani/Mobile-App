@@ -113,3 +113,16 @@
 input[type="checkbox"].review-checkbox:checked {
   accent-color: #000000;
 }
+
+.image-container {
+  position: relative;
+}
+
+.review-part .image-container .closeicon {
+  color: gray;
+  margin: -5px 10px 0px 0px;
+  cursor: pointer;
+  background-color: white;
+  padding: 5px;
+  border-radius: 50%;
+}

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchIcon from "@mui/icons-material/Search";
-import Form from "react-bootstrap/Form";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
@@ -17,6 +16,7 @@ import { useDispatch } from "react-redux";
 import Items from "./Items";
 import { favouriteData } from "../../toolkit/slice";
 import { CircularProgress } from "@mui/material";
+import { mainURL } from "../../config/url";
 
 const CatalogPage = () => {
   const [product, setProduct] = useState([]);
@@ -40,7 +40,7 @@ const CatalogPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/products")
+      .get(mainURL)
       .then((response) => {
         const data = response.data.filter((res) => {
           return res.productId == productId;
@@ -177,8 +177,8 @@ const CatalogPage = () => {
         <section className="container catalog-page">
           {/* Top Part */}
 
-          <section className="top-part">
-            <div className="pt-3 d-flex justify-content-between">
+          <section className="top-part fixed-top pb-2 container-fluid">
+            <div className="pt-3 d-flex justify-content-between ">
               <ArrowBackIosNewIcon onClick={() => navigate(-1)} />
               <div className="search-bar">
                 {isSearchOpen ? (
@@ -225,7 +225,7 @@ const CatalogPage = () => {
 
           {/* Product List */}
 
-          <section>
+          <section className="catalog-items">
             {filteredProducts
               ?.filter((item) => item.image)
               ?.map((item) => (
@@ -273,8 +273,7 @@ const CatalogPage = () => {
             <p className="ps-4 py-3 m-0" onClick={handleSortByPopularity}>
               Popular
             </p>
-            <p className="ps-4 py-3 m-0">Newest</p>
-            <p className="ps-4 py-3 m-0">Customer review</p>
+
             <p
               className="ps-4 py-3 m-0"
               onClick={() => handleSort("lowest to high")}

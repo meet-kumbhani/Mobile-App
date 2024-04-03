@@ -6,10 +6,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Form from "react-bootstrap/Form";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { mainURL } from "../../config/url";
 import moment from "moment";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Review = () => {
   const [rating, setRating] = useState(0);
@@ -20,6 +21,7 @@ const Review = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const fileInputRef = useRef(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleLogoClick = () => {
     fileInputRef.current.click();
@@ -39,7 +41,7 @@ const Review = () => {
       });
   }, [id]);
 
-  const handleFileChange = (e) => {
+  const ChangeFile = (e) => {
     const files = e.target.files;
     const selectedImagesArray = [];
 
@@ -55,7 +57,7 @@ const Review = () => {
     setSelectedImages(selectedImagesArray);
   };
 
-  const handleReviewSubmit = () => {
+  const SubmitReview = () => {
     const newReview = {
       reviewid: product.review.length + 1,
       reviewrating: rating,
@@ -105,6 +107,12 @@ const Review = () => {
     return total;
   };
 
+  const removeImage = (index) => {
+    const updatedSelectedImages = [...selectedImages];
+    updatedSelectedImages.splice(index, 1);
+    setSelectedImages(updatedSelectedImages);
+  };
+
   const totalRatings = countTotalRatings();
 
   const average = totalRatings / 5;
@@ -114,9 +122,7 @@ const Review = () => {
   return (
     <section className="review-part">
       <div className="pt-3 container-fluid">
-        <Link to="/productdetails" className="nav-link">
-          <ArrowBackIosNewIcon />
-        </Link>
+        <ArrowBackIosNewIcon onClick={() => navigate(-1)} />
       </div>
 
       <section className="heading">
@@ -356,12 +362,17 @@ const Review = () => {
             <div className="images-upload">
               <div className="selected-images">
                 {selectedImages.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    alt="Selected Image"
-                    style={{ width: "140px", height: "130px" }}
-                  />
+                  <div className="image-container" key={index}>
+                    <img
+                      src={image}
+                      alt="Selected Image"
+                      style={{ width: "140px", height: "130px" }}
+                    />
+                    <CloseIcon
+                      className="closeicon"
+                      onClick={() => removeImage(index)}
+                    />
+                  </div>
                 ))}
               </div>
               <div className="camera-icon" onClick={handleLogoClick}>
@@ -376,7 +387,7 @@ const Review = () => {
                   type="file"
                   ref={fileInputRef}
                   style={{ display: "none" }}
-                  onChange={handleFileChange}
+                  onChange={ChangeFile}
                   multiple
                 />
                 <h6 className="mt-2">Add your photos</h6>
@@ -386,7 +397,7 @@ const Review = () => {
 
           <button
             className="border-0 rounded-pill send-review-btn p-3 w-100 mt-5"
-            onClick={handleReviewSubmit}
+            onClick={SubmitReview}
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasBottom"
             aria-controls="offcanvasBottom"

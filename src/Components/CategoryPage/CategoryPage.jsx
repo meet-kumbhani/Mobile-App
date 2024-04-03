@@ -10,7 +10,7 @@ import { mainURL } from "../../config/url";
 
 const CategoryPage = () => {
   const [info, setInfo] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchitems, setsearchitems] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [loading, setloading] = useState(true);
   const navigate = useNavigate();
@@ -24,13 +24,13 @@ const CategoryPage = () => {
         setloading(false);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error", error);
         setloading(false);
       });
   }, []);
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
+  const Search = (event) => {
+    setsearchitems(event.target.value);
   };
 
   const toggleSearch = () => {
@@ -52,8 +52,8 @@ const CategoryPage = () => {
                 className="border-0"
                 type="text"
                 placeholder="Search by name..."
-                value={searchTerm}
-                onChange={handleSearch}
+                value={searchitems}
+                onChange={Search}
               />
             )}
           </div>
@@ -81,7 +81,7 @@ const CategoryPage = () => {
                 ?.filter((item) =>
                   item?.maintype
                     ?.toLowerCase()
-                    ?.includes(searchTerm?.toLowerCase())
+                    ?.includes(searchitems?.toLowerCase())
                 )
                 ?.map((item) => (
                   <Link

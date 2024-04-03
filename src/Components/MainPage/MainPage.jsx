@@ -114,7 +114,7 @@ const MainPage = () => {
 
       <section className="sale-part mt-3">
         {allData
-          ?.filter((sale) => sale.id === 610)
+          ?.filter((sale) => sale.id === 612)
           ?.map((sale) => (
             <div className="d-flex justify-content-between align-items-center container-fluid">
               <h1 className="page-title">{sale.salename}</h1>

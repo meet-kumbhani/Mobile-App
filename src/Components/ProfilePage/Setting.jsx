@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import SearchIcon from "@mui/icons-material/Search";
 import Form from "react-bootstrap/Form";
 import TextField from "@mui/material/TextField";
 import "../ProfilePage/Setting.css";
@@ -55,11 +54,11 @@ const Setting = () => {
     }
   }, [passwordChangeSuccess]);
 
-  const handleCloseSnackbar = () => {
+  const Closesnackbar = () => {
     setSnackbarOpen(false);
   };
 
-  const handlePasswordChange = async () => {
+  const PasswordChange = async () => {
     if (
       oldPassword === loggedInUserData.Password &&
       newPassword === repeatNewPassword
@@ -83,14 +82,14 @@ const Setting = () => {
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={1500}
-        onClose={handleCloseSnackbar}
+        onClose={Closesnackbar}
         TransitionComponent={Slide}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <MuiAlert
           elevation={6}
           variant="filled"
-          onClose={handleCloseSnackbar}
+          onClose={Closesnackbar}
           severity="success"
         >
           Password changed successfully!
@@ -140,7 +139,6 @@ const Setting = () => {
               label="Password"
               variant="outlined"
               type="password"
-              value={loggedInUserData ? loggedInUserData.Password : ""}
             />
           </Form.Group>
         </section>
@@ -202,7 +200,7 @@ const Setting = () => {
             </Form.Group>
             <button
               className="border-0 rounded-pill savepassword-btn p-3 w-100 mt-5"
-              onClick={handlePasswordChange}
+              onClick={PasswordChange}
               data-bs-dismiss="offcanvas"
               aria-label="Close"
             >
