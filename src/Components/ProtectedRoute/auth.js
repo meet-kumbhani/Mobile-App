@@ -1,6 +1,6 @@
 export const isAuthenticated = () => {
 
-     const token = localStorage.getItem('loggedInUser');
+     const token = localStorage.getItem('loggedInUser' && "Forgotuser");
 
      if (token) {
           return true;

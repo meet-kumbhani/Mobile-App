@@ -10,11 +10,11 @@ import { SnackbarProvider } from 'notistack';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-  <SnackbarProvider maxSnack={2}>
-    <Provider store={store}>
+  <Provider store={store}>
+    <SnackbarProvider maxSnack={2}>
       <App />
-    </Provider>
-  </SnackbarProvider>
+    </SnackbarProvider>
+  </Provider>
 
   // </React.StrictMode>
 );

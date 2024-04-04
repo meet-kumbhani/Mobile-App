@@ -22,6 +22,7 @@ import ShippingAddress from "../Components/CartPage/ShippingAddress";
 import Success from "../Components/CartPage/Success";
 import Checkout from "../Components/CartPage/Checkout";
 import Adress from "../Components/ProfilePage/Adress";
+import NewPassword from "../Components/NewPassword/NewPassword";
 
 const Router = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -34,6 +35,7 @@ const Router = () => {
   const Selectedadress = (address) => {
     setSelectedAddress(address);
   };
+
   return (
     <div>
       <BrowserRouter>
@@ -129,6 +131,11 @@ const Router = () => {
           <Route
             path="/success"
             element={<Protected element={<Success />} />}
+          ></Route>
+
+          <Route
+            path="/newpassword"
+            element={<Protected element={<NewPassword />} />}
           ></Route>
         </Routes>
       </BrowserRouter>

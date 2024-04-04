@@ -18,6 +18,7 @@ body {
   color: #ffffff;
   margin-bottom: 5%;
   margin-top: 5%;
+  box-shadow: 0px 4px 8px 0px #d3262640;
 }
 
 .main-page .image-content-part .banner-text {

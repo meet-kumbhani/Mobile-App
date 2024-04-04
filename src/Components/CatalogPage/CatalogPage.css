@@ -24,6 +24,10 @@
   display: none;
 }
 
+.selected {
+  box-shadow: 2px 2px 5px black;
+}
+
 .color-button.selected {
   outline: 2px solid purple !important;
   box-shadow: 2px 2px 5px purple !important;
