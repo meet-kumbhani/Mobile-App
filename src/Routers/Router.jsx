@@ -45,65 +45,64 @@ const Router = () => {
           <Route path="/signup" element={<Signup />}></Route>
           <Route
             path="/mainpage"
-            element={<Protected element={<MainPage />} />}
+            element={<MainPage />}
           ></Route>
           <Route
             path="/category"
-            element={<Protected element={<CategoryPage />} />}
+            element={<CategoryPage />}
           ></Route>
           <Route
             path="/subcategory/:parentId"
-            element={<Protected element={<CategoryList />} />}
+            element={<CategoryList />}
           ></Route>
           <Route
             path="/catalog/:productId"
-            element={<Protected element={<CatalogPage />} />}
+            element={<CatalogPage />}
           ></Route>
           <Route
             path="/catalog2/:productId"
-            element={<Protected element={<CatalogPage2 />} />}
+            element={<CatalogPage2 />}
           ></Route>
           <Route
             path="/productdetails/:id"
-            element={<Protected element={<ProductDetails />} />}
+            element={<ProductDetails />}
           ></Route>
           <Route
             path="/review/:id"
-            element={<Protected element={<Review />} />}
+            element={<Review />}
           ></Route>
           <Route
             path="/favourite"
-            element={<Protected element={<FavouritePageList />} />}
+            element={<FavouritePageList />}
           ></Route>
           <Route
             path="/favouritegrid"
-            element={<Protected element={<FavouriteGrid />} />}
+            element={<FavouriteGrid />}
           ></Route>
           <Route
             path="/cart"
             element={
-              <Protected element={<CartPage setTotalAmount={Totalamount} />} />
-            }
+              <CartPage setTotalAmount={Totalamount} />}
           ></Route>
           <Route
             path="/profile"
-            element={<Protected element={<MyProfile />} />}
+            element={<MyProfile />}
           ></Route>
           <Route
             path="/adress/:id"
-            element={<Protected element={<Adress />} />}
+            element={<Adress />}
           ></Route>
           <Route
             path="/myorder"
-            element={<Protected element={<MyOrder />} />}
+            element={<MyOrder />}
           ></Route>
           <Route
             path="/orderdetails/:id"
-            element={<Protected element={<OrderDetail />} />}
+            element={<OrderDetail />}
           ></Route>
           <Route
             path="/settings"
-            element={<Protected element={<Setting />} />}
+            element={<Setting />}
           ></Route>
           <Route path="/forgotpassword" element={<Forgotpassword />}></Route>
           <Route
@@ -123,19 +122,18 @@ const Router = () => {
           <Route
             path="/shippingaddress"
             element={
-              <Protected
-                element={<ShippingAddress onSelectAddress={Selectedadress} />}
+              <ShippingAddress onSelectAddress={Selectedadress}
               />
             }
           ></Route>
           <Route
             path="/success"
-            element={<Protected element={<Success />} />}
+            element={<Success />}
           ></Route>
 
           <Route
             path="/newpassword"
-            element={<Protected element={<NewPassword />} />}
+            element={<NewPassword />}
           ></Route>
         </Routes>
       </BrowserRouter>
